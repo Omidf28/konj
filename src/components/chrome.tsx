@@ -33,7 +33,7 @@ export function Footer() {
           <Link href="/" className="brand">
             <BrandMark /><span className="brand-name">{name}<small dir="ltr">KONJ</small></span>
           </Link>
-          <p>پوشاک و چاپ مستقل، برای سلیقه‌های سنگین.</p>
+          <p>پوشاک، اشیا و چاپ اختصاصی کُنج.</p>
           <p className="muted">
             فروشگاه در حال توسعه است؛ پرداخت بانکی فعال نیست.
           </p>

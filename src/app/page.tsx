@@ -1,3 +1,4 @@
+import { MarbleFigure } from "@/components/marble-figure";
 import { ForestNotes, PineEmblem } from "@/components/forest-notes";
 import { GothicDivider } from "@/components/gothic-divider";
 import { BotanicalSeal } from "@/components/botanical-seal";
@@ -27,9 +28,9 @@ export default function Home() {
             کُنج / پوشاک و چاپ مستقل
           </p>
           <h1>
-            برای سلیقه‌های
+            پوشاک و اشیا،
             <br />
-            <span>سنگین.</span>
+            <span>با طرحِ تو.</span>
           </h1>
           <p className="hero-description">
             تیشرت، هودی، ماگ و استیکر با طرح انتخابی تو.
@@ -54,6 +55,7 @@ export default function Home() {
           </nav>
         </div>
         <div className="hero-stage home-shirt-stage">
+          <MarbleFigure />
           <GothicFrame />
           <HomeShirt base={shirtBase}/>
         </div>

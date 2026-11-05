@@ -27,6 +27,12 @@ function CoffeeDrawing() {
           <path d="m48 153 8 4m9-1 8 4m10-1 7 4m12-2 6 3m15-3 6 2"/>
         </g>
       </g>
+      <g transform="translate(167 137) rotate(-14)">
+        <ellipse rx="43" ry="27" fill="#b47b51" stroke="#674531" strokeWidth="1.5"/>
+        <path d="M-41-3c4-23 73-27 82-3l-6 7-10-1-7 7-12-3-11 5-10-6-11 1z" fill="#d8afa0" stroke="#885a4c" strokeWidth="1"/>
+        <ellipse cy="-3" rx="12" ry="8" fill="#79604c" stroke="#674531"/>
+        <path d="m-28-9 5-2m7-8 3 3m26-1 5 2m9 8-3 3m-36 9 5 1m18-4 4 2" stroke="#f8e8d2" strokeWidth="2" strokeLinecap="round"/>
+      </g>
     </svg>
   );
 }
@@ -53,16 +59,16 @@ export function ForestNotes() {
       <div className="forest-notes-heading">
         <span className="forest-note-index" dir="ltr">FIELD NOTES / 01</span>
         <PineEmblem />
-        <h2 id="forest-notes-title">قهوه، کاج، کمی راز.</h2>
-        <p>چند نشانه از آن‌سوی پرده؛ در جزئیات کُنج.</p>
+        <h2 id="forest-notes-title">قهوه و یک توقف کوتاه.</h2>
+        <p>میان کاج‌ها و پرده‌های سرخ.</p>
       </div>
       <Link className="forest-object coffee-note" href="/categories/mug">
         <CoffeeDrawing />
-        <span className="forest-object-text"><small>یک فنجان دیگر</small><strong>ماگ‌های کُنج <span aria-hidden="true">↖</span></strong></span>
+        <span className="forest-object-text"><small>قهوه و دونات</small><strong>ماگ‌های کُنج <span aria-hidden="true">↖</span></strong></span>
       </Link>
       <div className="forest-object log-note">
         <LogDrawing />
-        <span className="forest-object-text"><small>حلقه‌ها چیزی به خاطر دارند</small><span>یادداشتی از جنگل</span></span>
+        <span className="forest-object-text"><small>از دل جنگل</small><span>یادداشتی از جنگل</span></span>
       </div>
     </section>
   );

@@ -168,3 +168,23 @@
 @media print {
   .forest-notes,.hero-copy > .pine-emblem { display:none; }
 }
+
+@media screen {
+  .shop-home .home-shirt-stage > .marble-figure {
+    position:absolute;
+    z-index:0;
+    inset-inline-end:3%;
+    bottom:12%;
+    width:clamp(75px,17%,120px);
+    height:auto;
+    pointer-events:none;
+    filter:drop-shadow(8px 10px 6px #16081066);
+    opacity:.88;
+  }
+}
+@media screen and (max-width:500px) {
+  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:1%; width:78px; bottom:13%; }
+}
+@media print, (forced-colors:active) {
+  .shop-home .home-shirt-stage > .marble-figure { display:none; }
+}
