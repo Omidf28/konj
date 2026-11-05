@@ -4,20 +4,13 @@
   .site-header[data-liquid] { background:#321014ec; border-color:#b58b7059; border-top-color:#dfbea47a; }
   .shop-home .home-shirt-stage,.shirt-showcase,.studio-art-plate {
     background-color:#420d18;
-    background-image:url("/red-room-curtain.svg");
+    background-image:url("/red-room-scene.svg");
     background-size:100% 100%;
     border-color:#8f6254; outline-color:#ac8871;
     box-shadow:inset 0 0 70px #10060960,0 14px 32px #29101224;
     isolation:isolate; overflow:hidden;
   }
-  .shop-home .home-shirt-stage::after,.shirt-showcase::after,.studio-art-plate::after {
-    content:""; position:absolute; z-index:0; inset:auto -24% -1%; height:38%;
-    background:#d9d0bc url("/red-room-floor.svg") repeat;
-    background-size:160px 80px; transform-origin:center bottom;
-    transform:perspective(480px) rotateX(26deg);
-    border-top:2px solid #1e0b10;
-    box-shadow:inset 0 30px 28px -12px #17090de0; pointer-events:none;
-  }
+  .shop-home .home-shirt-stage::after,.shirt-showcase::after,.studio-art-plate::after { display:none; }
   .shop-home .home-shirt-stage > .gothic-frame,.shirt-showcase > .gothic-frame,
   .studio-art-plate > .gothic-frame { display:none; }
   .studio-art-plate::before { border-color:#dec5a24d; z-index:1; }
@@ -171,7 +164,7 @@
     position:absolute;
     z-index:1;
     inset-inline-end:3%;
-    bottom:15%;
+    bottom:7%;
     width:clamp(75px,17%,120px);
     height:auto;
     pointer-events:none;
@@ -180,7 +173,7 @@
   }
 }
 @media screen and (max-width:500px) {
-  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:1%; width:78px; bottom:13%; }
+  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:1%; width:78px; bottom:7%; }
 }
 @media print, (forced-colors:active) {
   .shop-home .home-shirt-stage > .marble-figure { display:none; }
@@ -219,7 +212,7 @@
   .coffee-note:hover strong { color:#fff4d7; }
   .coffee-note:focus-visible { outline-color:#f3d7a3; }
 
-  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:auto; right:3%; }
+  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:auto; right:19%; }
 }
 @media screen and (max-width:700px) {
   .forest-notes-heading { border-color:#ceac7944; }
@@ -241,4 +234,17 @@
 }
 @media print, (forced-colors:active) {
   .forest-notes-heading .pie-medallion { display:none; }
+}
+
+@media screen {
+  .forest-notes-heading { position:relative; padding-inline-end:55px; }
+  .lodge-key { position:absolute; inset-inline-end:0; top:12px; width:46px; height:auto; transform:rotate(-9deg); }
+  .diner-sign { display:inline-flex; flex-direction:column; gap:3px; padding:8px 16px; border:1px solid #bd8c715e; border-radius:28px; background:#281721; }
+  .diner-sign > span { font:italic 21px Georgia,serif; color:#d5eff0; letter-spacing:.15em; text-shadow:0 0 7px #7bbcc580; }
+  .diner-sign small { font-size:9px; color:#dcc8a8; }
+}
+@media (forced-colors:active) {
+  .lodge-key { display:none; }
+  .diner-sign { background:Canvas; border-color:CanvasText; }
+  .diner-sign > span,.diner-sign small { color:CanvasText; text-shadow:none; }
 }

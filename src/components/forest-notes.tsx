@@ -81,7 +81,15 @@ export function ForestNotes() {
   return (
     <section className="forest-notes shell" aria-labelledby="forest-notes-title">
       <div className="forest-notes-heading">
-        <span className="forest-note-index" dir="ltr">FIELD NOTES / 01</span>
+        <div className="diner-sign"><span dir="ltr">KONJ</span><small>قهوه‌خانهٔ کُنج</small></div>
+        <svg className="lodge-key" viewBox="0 0 70 150" aria-hidden="true" fill="none">
+          <ellipse cx="35" cy="14" rx="13" ry="11" stroke="#c9b68c" strokeWidth="3"/>
+          <path d="M35 23C14 33 9 72 12 103c2 25 10 37 23 39 13-2 21-14 23-39 3-31-2-70-23-80Z" fill="#315640" stroke="#acbb88" strokeWidth="2"/>
+          <path d="M35 32C20 44 17 76 20 102c2 18 6 28 15 31 9-3 13-13 15-31 3-26 0-58-15-70Z" stroke="#91a777" opacity=".6"/>
+          <circle cx="35" cy="36" r="4" fill="#172d24" stroke="#b9b68a"/>
+          <text x="35" y="83" textAnchor="middle" fill="#e6dfb5" fontSize="21" fontFamily="Georgia,serif">315</text>
+          <path d="M26 104h18m-15 5h12" stroke="#b9c599"/>
+        </svg>
         <CherryPie />
         <h2 id="forest-notes-title">قهوه و یک توقف کوتاه.</h2>
         <p>میان کاج‌ها و پرده‌های سرخ.</p>
