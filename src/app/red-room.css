@@ -1,0 +1,75 @@
+/* Red Room: original CSS velvet, geometric floor, smoked glass. */
+@media screen {
+  .shop-home .hero h1 span { color:#811d2e; }
+  .site-header[data-liquid] { background:#321014ec; border-color:#b58b7059; border-top-color:#dfbea47a; }
+  .shop-home .home-shirt-stage,.shirt-showcase,.studio-art-plate {
+    background-color:#420d18;
+    background-image:linear-gradient(180deg,#16080b38,transparent 28%,#13060999),
+      repeating-linear-gradient(90deg,#330913 0%,#681324 3%,#8c2434 5%,#6e1628 7%,#3c0916 10%,#24070e 12%,#51101f 14%);
+    border-color:#8f6254; outline-color:#ac8871;
+    box-shadow:inset 0 0 70px #10060960,0 14px 32px #29101224;
+    isolation:isolate; overflow:hidden;
+  }
+  .shop-home .home-shirt-stage::after,.shirt-showcase::after,.studio-art-plate::after {
+    content:""; position:absolute; z-index:0; inset:auto -25% 0; height:22%;
+    background:#d9d0bc url("/red-room-floor.svg") repeat;
+    background-size:112px 56px; transform-origin:bottom center;
+    transform:perspective(320px) rotateX(35deg);
+    box-shadow:inset 0 18px 24px #1b090f8c; pointer-events:none;
+  }
+  .shop-home .home-shirt-stage > .gothic-frame,.shirt-showcase > .gothic-frame,
+  .studio-art-plate > .gothic-frame { display:none; }
+  .studio-art-plate::before { border-color:#dec5a24d; z-index:1; }
+  .home-shirt-dock[data-liquid],.showcase-dock[data-liquid],.ambient-turn-controls {
+    background:#22151be8; border-color:#c4a28c66; border-top-color:#ead6bc80;
+    box-shadow:inset 0 1px 0 #fff2e51c,0 8px 24px #14080c40;
+    backdrop-filter:blur(22px) saturate(110%); -webkit-backdrop-filter:blur(22px) saturate(110%);
+  }
+  .showcase-copy[data-liquid] {
+    background:#290c14e8; border:1px solid #bc91744d; border-radius:3px;
+    box-shadow:inset 0 1px 0 #f5dbc01a;
+    backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px);
+  }
+  .showcase-copy h2 { border-color:#b48e73; color:#f4e6d7; }
+  .showcase-copy p,.showcase-copy .showcase-note { color:#e2cbc6; }
+  .home-shirt-viewer .ambient-cloth-controls .button { background:#291119ee; border-color:#c5a38b88; }
+  .home-shirt-viewer .ambient-cloth-controls .button[aria-pressed="true"] { background:#e3c9bb; color:#32131c; }
+  .gothic-divider { --divider-ink:#7f2931; }
+  .divider-rail {
+    height:9px; border:0; opacity:.65;
+    background:linear-gradient(135deg,transparent 43%,currentColor 44%,currentColor 55%,transparent 56%) 0 0/18px 9px repeat-x,
+      linear-gradient(225deg,transparent 43%,currentColor 44%,currentColor 55%,transparent 56%) 9px 0/18px 9px repeat-x;
+  }
+  .divider-rail::after { display:none; }
+  .shop-home .category-card { background:#521d28; border-color:#9b6d63; }
+  .shop-home .category-card:nth-child(2n) { background:#302629; border-color:#8a7770; }
+  .shop-home .category-card:nth-child(3n) { background:#682332; border-color:#a36d6c; }
+  .shop-home .studio-invitation { background:#37131d; border-color:#9b725f; }
+  .studio-art-plate .botanical-seal { color:#ddbc9a; }
+  .studio-art-plate > span,.studio-art-plate > small { color:#f4e6d7; }
+  .site-footer { background:#291217; border-top:3px double #ab806b; }
+}
+@media screen and (max-width:700px) {
+  .shop-home .home-shirt-stage::after,.shirt-showcase::after { background-size:84px 42px; height:18%; }
+  .showcase-copy[data-liquid] { background:#290c14f5; }
+}
+@media screen and (prefers-reduced-transparency:reduce) {
+  .site-header[data-liquid],.home-shirt-dock[data-liquid],.showcase-dock[data-liquid],
+  .ambient-turn-controls,.showcase-copy[data-liquid] {
+    background:#29131a; backdrop-filter:none; -webkit-backdrop-filter:none;
+  }
+}
+@media screen and (forced-colors:active) {
+  .shop-home .home-shirt-stage::after,.shirt-showcase::after,
+  .studio-art-plate::after,.studio-art-plate::before { display:none; }
+  .shop-home .home-shirt-stage,.shirt-showcase,.shop-home .category-card,
+  .shop-home .category-card:nth-child(2n),.shop-home .category-card:nth-child(3n),
+  .shop-home .studio-invitation,.site-header[data-liquid],.site-footer,
+  .home-shirt-dock[data-liquid],.showcase-dock[data-liquid],.ambient-turn-controls,
+  .showcase-copy[data-liquid],.home-shirt-viewer .ambient-cloth-controls .button {
+    background:Canvas; color:CanvasText; border-color:CanvasText; outline-color:CanvasText;
+    box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none;
+  }
+  .shop-home .hero h1 span,.showcase-copy h2,.showcase-copy p,.showcase-copy .showcase-note { color:CanvasText; }
+  .home-shirt-viewer .ambient-cloth-controls .button[aria-pressed="true"] { background:Highlight; color:HighlightText; }
+}

@@ -1,0 +1,11 @@
+{
+  "file": "public/models/human-adult.glb",
+  "sha256": "59cedba7bff398c614ece602fcba33130a2a1251ccb1496218c280266e16ea53",
+  "bytes": 489548,
+  "vertices": 13563,
+  "triangles": 27122,
+  "heightMeters": 1.76,
+  "completeBody": true,
+  "neutralPelvis": true,
+  "license": "CC0-1.0"
+}

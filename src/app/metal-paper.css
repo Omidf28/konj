@@ -1,0 +1,273 @@
+/* Konj: burgundy, tarnished silver, paper. All ornament is local vector/CSS. */
+:root {
+  --bg:#e2dad3; --surface:#eee7df; --surface-raised:#d7ccca;
+  --text:#302229; --muted:#6b5960; --accent:#792a43; --border:#b5a0a6;
+  --paper:#f0e6d9; --ink:#2d2027; --lilac:#792a43; --warning:#80521f; --store-radius:3px;
+}
+body { background:var(--bg); color:var(--text); }
+::selection { background:#792a43; color:#fff3e6; }
+.announcement { background:#26151d; color:#d9c4ca; border:0; border-bottom:1px solid #744052; font-size:10px; }
+.brand { display:inline-flex; align-items:center; gap:10px; letter-spacing:0; }
+.brand-mark { width:46px; height:50px; flex:none; color:#ebd9d2; }
+.brand-name { display:flex; flex-direction:column; line-height:1.1; font-size:29px; font-weight:950; }
+.brand-name small { font:900 9px Georgia,'Times New Roman',serif; letter-spacing:.28em; margin-top:6px; color:#c8aeb6; }
+.site-header[data-liquid] {
+  background:#35151fdf; color:#f1e3db; border:1px solid #ab778755; border-top-color:#c6a3ab80;
+  border-radius:12px 12px 3px 3px; box-shadow:inset 0 1px 0 #edcbd82b,0 9px 24px #30131b20;
+  backdrop-filter:blur(22px) saturate(125%); -webkit-backdrop-filter:blur(22px) saturate(125%);
+}
+.site-header .desktop-navigation a { color:#ddc6cb; }
+.site-header .desktop-navigation a:hover,.site-header .desktop-navigation a[aria-current="page"] { color:#fff1e6; background:#e8bac510; }
+.site-header .desktop-navigation a[aria-current="page"]::after { background:#c38c9d; }
+.site-header .cart-count { background:#ddbdc3; color:#391321; }
+.header-cta { background:#ffffff08; color:#eddbd5; border:1px solid #ad7f8b70; border-radius:3px; box-shadow:inset 0 1px 0 #ffffff12; }
+.mobile-nav summary { color:#ebdad5; border-color:#9e6b7a; }
+.mobile-nav nav { background:#341721; color:#eddbd5; border:1px solid #855464; box-shadow:0 12px 24px #27101c30; }
+.mobile-nav nav a[aria-current="page"] { color:#fff1e6; background:#b26a811c; }
+.button.primary { background:#60233a; color:#f8e9dc; border:1px solid #60233a; border-radius:2px; box-shadow:inset 0 1px 0 #a36b7a,0 2px 0 #391521; }
+.button.primary:hover { background:#7a2c47; border-color:#7a2c47; }
+.button.primary:disabled { box-shadow:none; }
+.button.outline { background:transparent; border-color:#a58a93; color:inherit; }
+:focus-visible { outline-color:#9c3658; }
+[data-liquid],.catalog-form[data-liquid],.garment-studio .fit-analysis[data-liquid],.garment-studio .fit-controls[data-liquid] { background:#eee7df; border-color:#beabb0; box-shadow:none; }
+.catalog-form input,.catalog-form select,.catalog-form .search-field,input,select,textarea { background:#f8f0e9; color:#302229; border-color:#b8a1a9; }
+input::placeholder,textarea::placeholder { color:#7b656e; }
+.catalog-form label { color:#6b4b59; }
+.botanical-seal { display:block; width:150px; height:auto; color:#744155; flex-shrink:0; pointer-events:none; }
+.shop-home .hero { gap:clamp(30px,5vw,72px); padding-block:44px 62px; align-items:center; }
+.shop-home .hero-copy { position:relative; }
+.shop-home .hero-copy > .botanical-seal { width:180px; margin-bottom:18px; margin-inline-start:-10px; color:#702940; }
+.shop-home .hero-copy > .eyebrow { border:0; background:transparent; padding:0; margin-bottom:15px; font-size:10px; font-weight:600; color:#785264; letter-spacing:0; }
+.shop-home .hero h1 { font-size:clamp(43px,5.1vw,76px); line-height:1.4; font-weight:900; letter-spacing:-1.5px; text-shadow:none; margin-bottom:22px; }
+.shop-home .hero h1 span { color:#71263e; }
+.shop-home .hero-description { font-size:14px; line-height:2.2; max-width:38ch; color:#6b5960; }
+.shop-home .hero-actions { margin-top:26px; gap:20px; }
+.hero-shortcuts { margin-top:26px; gap:8px; }
+.hero-shortcuts a { background:transparent; border:0; border-block:3px double #b99fa7; border-radius:0; padding:4px 9px; min-height:36px; color:#653447; font-size:11px; gap:8px; }
+.hero-shortcuts a:hover { background:#60233a; color:#f8e9dc; border-color:#60233a; }
+ .gothic-frame {position:absolute;inset:1% 0;width:100%;height:98%;pointer-events:none;z-index:0;}
+/* The live garment floats over an architectural plate, with no generated bitmap. */
+.shop-home .home-shirt-stage {
+  isolation:isolate; position:relative; aspect-ratio:4/5; min-height:610px;
+  background:#37212c; border:1px solid #805764; border-radius:2px;
+  outline:3px double #ab929c; outline-offset:6px; box-shadow:0 18px 32px #30151f24;
+}
+.shop-home .home-shirt-stage::before { display:none; }
+.shop-home .home-shirt-stage > .gothic-frame { display:block; position:absolute; inset:1% 0; width:100%; height:98%; color:#cfb1bd; opacity:.38; z-index:0; pointer-events:none; }
+.home-shirt-presentation { position:absolute; inset:0; z-index:1; }
+.home-shirt-viewer { position:absolute; inset:27px 4px 78px; }
+.home-shirt-viewer .ambient-stage { height:100%; border:0; background:transparent; border-radius:0; padding:0; }
+.home-shirt-viewer .ambient-stage .webgl-host { height:calc(100% - 56px); min-height:300px; }
+.home-shirt-viewer .ambient-turn-controls { bottom:0; }
+.home-shirt-dock[data-liquid],.showcase-dock[data-liquid] {
+  background:#401c2aba; color:#ead7d7; border:1px solid #d5a9b24a; border-top-color:#f2c6cf6b;
+  box-shadow:inset 0 1px 0 #fff4ed18,0 8px 24px #190d1640; border-radius:12px;
+  backdrop-filter:blur(22px) saturate(120%); -webkit-backdrop-filter:blur(22px) saturate(120%);
+}
+.home-shirt-dock[data-liquid] { position:absolute; bottom:16px; left:50%; transform:translateX(-50%); display:flex; align-items:center; gap:12px; width:max-content; max-width:calc(100% - 24px); padding:10px 12px; }
+.home-shirt-dock .fit-swatches { gap:6px; }
+.home-spin,.showcase-pause { min-height:36px; font-size:11px; white-space:nowrap; background:#ffffff06; color:#ead7d7; border:1px solid #bb8a9b66; border-radius:4px; padding:5px 10px; }
+.home-spin:hover,.showcase-pause:hover { background:#ffffff15; }
+.home-spin[aria-pressed="true"] { background:#d6b5bd; border-color:#d6b5bd; color:#391d2a; }
+.home-shirt-viewer .ambient-cloth-controls .button,.ambient-cloth-controls .button { background:#3c1f2cd9; color:#e4cbd3; border-color:#b58b9c55; border-radius:3px; }
+.home-shirt-viewer .ambient-cloth-controls .button { font-size:10px; }
+.home-shirt-viewer .ambient-cloth-controls .button[aria-pressed="true"],.ambient-cloth-controls .button[aria-pressed="true"] { background:#dac0c7; color:#3c1b2c; }
+.ambient-turn-controls { background:#3c1f2cc9; color:#e3cbd3; border:1px solid #b58b9c55; border-radius:10px; box-shadow:inset 0 1px 0 #ffffff15; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); }
+.ambient-turn-controls button { color:#e3cbd3; background:#ffffff08; }
+.ambient-turn-controls button:hover { background:#ffffff18; }
+/* Responsive wrought-metal dividers; never stretched SVG centerpieces. */
+.gothic-divider { --divider-ink:#793049; display:flex; align-items:center; direction:ltr; width:100%; height:48px; color:var(--divider-ink); pointer-events:none; gap:0; }
+.divider-terminal { display:block; width:22px; height:36px; flex:0 0 22px; }
+.divider-terminal-end { transform:rotate(180deg); }
+.divider-knot { display:block; width:208px; height:47px; flex:0 0 208px; }
+.divider-rail { position:relative; flex:1 1 0; min-width:0; height:7px; border-top:1px solid currentColor; border-bottom:1px solid currentColor; opacity:.75; }
+.divider-rail::after { content:""; position:absolute; inset:2px 0 auto; border-top:1px solid currentColor; opacity:.3; }
+.shop-home .section-heading { position:relative; border:0; padding-top:34px; margin-top:14px; margin-bottom:26px; }
+.shop-home .section-heading::before,.shop-home .section-heading::after { display:none; }
+.shop-home .section-heading > .gothic-divider { position:absolute; top:-21px; inset-inline:0; }
+.section-heading h2 { font-weight:850; font-size:28px; letter-spacing:-.7px; }
+.shop-home .section-heading .eyebrow { font-size:10px; color:#7a5261; }
+.section-index { font:10px Georgia,'Times New Roman',serif; color:#805564; letter-spacing:.13em; }
+.catalog-page > .gothic-divider { margin:4px 0 20px; }
+.catalog-engraving { width:145px; height:68px; margin-inline-start:auto; color:#793049; }
+.category-tabs { border:0; border-bottom:1px solid #baa2aa; gap:4px; border-radius:0; background:transparent; box-shadow:none; padding:0 0 8px; }
+.category-tabs a { background:transparent; border-radius:1px; color:#674352; }
+.category-tabs a[aria-current="page"] { background:#60233a; color:#f4e6df; border-color:#60233a; box-shadow:none; }
+.shop-home .category-card,.shop-home .category-card:nth-child(2n),.shop-home .category-card:nth-child(3n) { background:#4a2937; color:#f0dadf; border:1px solid #89576b; border-radius:1px; box-shadow:inset 0 0 0 5px #dbb6c00b; }
+.shop-home .category-card:nth-child(2n) { background:#352931; border-color:#79616d; }
+.shop-home .category-card:nth-child(3n) { background:#54283a; }
+.category-card .category-number { color:#d2acbb; }
+.category-card h3 { font-weight:800; }
+.category-card p { color:#ccb4bf; }
+.product-card[data-liquid] { background:transparent; border:0; padding:0; backdrop-filter:none; -webkit-backdrop-filter:none; }
+.product-card .motif-offline,.product-card .motif-noise,.product-card .motif-cat,.product-card .motif-fine { background:#c6b3bd; }
+.product-card:nth-child(2n) .art-panel { background:#b9aeb8; }
+.product-card .art-panel { border:1px solid #9d8794; border-radius:1px; outline:0; }
+.product-card .art-panel::after { inset:8px; border:1px solid #f4e3ea30; border-radius:100% 100% 0 0 / 19% 19% 0 0; background:none; }
+.product-card:hover .art-panel .product-art { transform:scale(1.025); }
+.product-card .card-info { border-bottom:3px double #b39aa4; padding:16px 1px 20px; }
+.product-card .card-info h3 { font-size:16px; font-weight:800; }
+.product-card .price { color:#3f2632; }
+.product-card .status { border-radius:2px; background:#eee2dedb; border:1px solid #b694a3; color:#63273d; font-size:9px; padding:3px 8px; }
+.product-card .status.unavailable { color:#6f5b64; background:#dcd0d5; }
+.product-card .sample-label { border-radius:1px; background:#3a1c2ad4; color:#ead8dd; font-size:8px; }
+.card-view { background:#f0dce5bc; border-color:#a48291; color:#663448; border-radius:3px; }
+.shirt-showcase { background:#37212c; border:1px solid #805764; border-radius:2px; outline:3px double #b79aa5; outline-offset:4px; box-shadow:none; }
+.shirt-showcase::before { display:none; }
+.shirt-showcase > .gothic-frame { display:block; left:0; right:auto; width:65%; color:#cfb1bd; opacity:.24; }
+.showcase-model { z-index:1; }
+.showcase-copy[data-liquid] { z-index:2; background:#37212c; color:#ead7dc; border:0; box-shadow:none; backdrop-filter:none; -webkit-backdrop-filter:none; }
+.showcase-copy h2 { border-block:3px double #aa768b; padding-block:12px; color:#f1dfe3; font-weight:900; }
+.showcase-copy p,.showcase-copy .showcase-note { color:#d2b7c4; }
+.showcase-dock[data-liquid] { z-index:3; }
+.showcase-dock-label { color:#d0b6c3; }
+.garment-stage { background:#37212c; border-color:#805764; box-shadow:inset 0 1px 0 #dfb8c024; }
+.garment-stage .muted,.garment-stage > .muted,.garment-stage .stage-caption { color:#c6aab8; }
+.garment-stage .viewer-views .button { background:#4b2a39; color:#ead3de; border-color:#94617b; }
+/* Secondary dark panels form a rhythm instead of a uniformly black page. */
+.shop-home .studio-invitation { background:#3b1f2c; --text:#f0dde3; --muted:#c8a9b7; color:#f0dde3; border:1px solid #8e5e73; border-block:3px double #ac7a8f; border-radius:2px; padding:clamp(22px,4vw,44px); gap:clamp(24px,4vw,48px); }
+.shop-home .studio-invitation .eyebrow,.shop-home .studio-fine-print { color:#c5a0b2; }
+.studio-copy h2 { font-weight:850; line-height:1.6; letter-spacing:-1px; }
+.shop-home .studio-copy h2 > span { color:#e6bdcd; }
+.studio-invitation .text-link { color:#e4c5d0; }
+.studio-art-plate { position:relative; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:12px; min-height:360px; aspect-ratio:4/3; background:#291b24; outline:3px double #927887; outline-offset:5px; color:#e7d1da; overflow:hidden; }
+.studio-art-plate::before { content:""; position:absolute; inset:10px; border:1px solid #ac809329; pointer-events:none; }
+.studio-art-plate > * { position:relative; z-index:1; }
+.studio-art-plate > .gothic-frame { position:absolute; inset:0; width:100%; height:100%; color:#b897a9; opacity:.25; z-index:0; }
+.studio-art-plate .botanical-seal { width:220px; color:#bb8b9f; }
+.studio-art-plate > span { font-size:74px; font-weight:900; line-height:1.3; letter-spacing:-3px; }
+.studio-art-plate > small { font:10px Georgia,'Times New Roman',serif; letter-spacing:.24em; }
+.collection-card { position:relative; overflow:hidden; background:#cab5c0; border:1px solid #ab8e9e; border-radius:1px; padding:28px 24px; box-shadow:inset 0 0 0 5px #f8dfe93d; }
+.collection-card:nth-child(2n) { background:#bfb1bb; }
+.collection-card .eyebrow { font-family:inherit; color:#7a5261; font-size:10px; }
+.collection-card .collection-engraving { width:160px; position:absolute; top:18px; left:14px; opacity:.25; color:#7e3f59; }
+.collection-card h3 { font-weight:800; color:#512b3d; }
+.collection-card p { color:#6e4b5d; max-width:28ch; }
+.closing-note { position:relative; border:0; border-bottom:3px double #b39aa4; padding-top:46px; }
+.closing-note > .gothic-divider { position:absolute; top:-24px; inset-inline:0; }
+.closing-note > .botanical-seal { width:140px; color:#7c3d56; }
+.closing-note h2 { font-weight:800; }
+.site-footer { position:relative; --text:#ead5de; --muted:#c2a4b4; --accent:#e0b6c6; background:#2f1824; color:#ead5de; border:0; padding-top:50px; }
+.footer-divider { position:relative; }
+.footer-divider > .gothic-divider { --divider-ink:#b88b9f; position:absolute; top:-74px; }
+.site-footer .brand-mark { width:54px; height:58px; color:#dab6c7; }
+.footer-bottom { border-color:#725064; color:#c2a4b4; }
+.notice { background:#f0e5de; color:#624250; border-color:#bda1ae; }
+.notice.danger { background:#f0dade; color:#802d48; border-color:#ba8194; }
+.admin-form-panel .field input[readonly] { background:#e5d9d2; color:#543d47; }
+.order-status-badge { background:#ead6df; color:#60233a; }
+.draft-notice { background:#f1e3cc; color:#70471b; border-color:#986d39; }
+/* Mobile: rails shrink, knot remains legible, and live controls keep their own space. */
+@media(max-width:800px) {
+  .shop-home .hero { padding-top:28px; gap:32px; }
+  .shop-home .hero-copy > .botanical-seal { width:140px; margin-bottom:12px; }
+  .shop-home .hero h1 { font-size:48px; letter-spacing:-.8px; }
+  .catalog-engraving { width:100px; height:48px; }
+}
+@media(max-width:640px) {
+  .brand-mark { width:36px; height:40px; } .brand-name { font-size:25px; }
+  .shop-home .hero h1 { font-size:44px; } .shop-home .home-shirt-stage { min-height:535px; aspect-ratio:4/5; }
+  .home-shirt-viewer { inset:15px 0 78px; } .home-shirt-dock[data-liquid] { bottom:12px; padding:9px 12px; }
+  .divider-knot { width:150px; height:34px; flex-basis:150px; } .divider-terminal { width:14px; flex-basis:14px; }
+  .shop-home .section-heading { padding-top:30px; }
+  .section-heading h2 { font-size:24px; } .section-index { font-size:9px; letter-spacing:.05em; }
+  .shirt-showcase > .gothic-frame { width:100%; top:300px; height:480px; }
+  .studio-art-plate { min-height:280px; aspect-ratio:4/3; } .studio-art-plate .botanical-seal { width:170px; } .studio-art-plate > span { font-size:60px; }
+  .closing-note > .botanical-seal { width:100px; } .collection-card { padding:24px 18px; } .collection-card .collection-engraving { width:120px; }
+}
+@media(max-width:400px) {
+  .home-shirt-dock[data-liquid] { gap:8px; padding:8px 10px; } .home-shirt-dock .fit-swatches button { width:24px; height:24px; } .home-spin { font-size:10px; padding:5px 8px; }
+  .divider-knot { width:124px; flex-basis:124px; }
+}
+@media(prefers-reduced-transparency:reduce) {
+  .site-header[data-liquid],.home-shirt-dock[data-liquid],.showcase-dock[data-liquid],.ambient-turn-controls,.home-shirt-viewer .ambient-cloth-controls .button { background:#351c29; backdrop-filter:none; -webkit-backdrop-filter:none; }
+}
+@media(forced-colors:active) {
+  .gothic-divider,.gothic-frame,.botanical-seal,.studio-art-plate,.product-card .art-panel::after { display:none; }
+  body,.site-footer,.shirt-showcase,.collection-card,.shop-home .home-shirt-stage,.shop-home .studio-invitation,.shop-home .category-card,.shop-home .category-card:nth-child(2n),.shop-home .category-card:nth-child(3n) { background:Canvas; color:CanvasText; box-shadow:none; outline-color:CanvasText; }
+  .site-header[data-liquid],.home-shirt-dock[data-liquid],.showcase-dock[data-liquid],.ambient-turn-controls,.home-spin { background:Canvas; color:CanvasText; border-color:CanvasText; }
+  .shop-home .hero h1 span,.showcase-copy h2,.brand-mark,.brand-name small,.collection-card h3,.category-card p { color:CanvasText; }
+  .button.primary { background:ButtonFace; color:ButtonText; border-color:ButtonText; box-shadow:none; }
+  .home-spin[aria-pressed="true"] { background:Highlight; color:HighlightText; }
+}
+@media print {
+  .gothic-divider,.gothic-frame,.botanical-seal,.studio-art-plate,.home-shirt-presentation,.shop-home .home-shirt-stage,.product-card .art-panel::after { display:none; }
+  body,.site-footer,.shirt-showcase,.collection-card,.shop-home .studio-invitation,.shop-home .category-card,.shop-home .category-card:nth-child(2n),.shop-home .category-card:nth-child(3n),.site-header[data-liquid] { background:white; color:black; box-shadow:none; backdrop-filter:none; }
+}
+
+/* Stage 1: contrast, tablet navigation, and space reserved for model tools. */
+.site-header[data-liquid] {position:relative;z-index:30;overflow:visible;}
+.garment-studio .fit-controls,.garment-studio .fit-analysis {color:#302229;}
+.garment-studio .lab-eyebrow,.garment-studio .lab-step {color:#75334c;}
+.garment-studio .fit-field-label,.garment-studio .field,.garment-studio .fit-range {color:#513540;}
+.garment-studio .fit-help,.garment-studio .fit-analysis .fit-help {color:#6b5960;}
+.garment-studio .field select {background:#f8f0e9;color:#302229;border-color:#b8a1a9;border-radius:5px;}
+.garment-studio .fit-size-options button {background:#e6d8d9;color:#513540;border-color:#b89ca8;border-radius:5px;min-width:44px;min-height:44px;}
+.garment-studio .fit-size-options button[aria-pressed="true"] {background:#60233a;color:#f8e9dc;border-color:#60233a;}
+.garment-studio .fit-measure-strip {background:#eee7df;color:#302229;border-color:#b8a1a9;}
+.garment-studio .fit-measure-strip small,.garment-studio .fit-measure-strip span {color:#6b5960;}
+.garment-studio .fit-analysis th,.garment-studio .fit-analysis td {color:#513540;border-color:#b8a1a9;}
+.garment-studio .fit-analysis p,.garment-studio .fit-analysis p strong {color:#513540;}
+.garment-studio .fit-selected-row {background:#ddc8d1;}
+.garment-studio .fit-range output {color:#75334c;}
+.garment-studio .fit-check input,.garment-studio .fit-range input {accent-color:#792a43;}
+.recovery-panel {background:#ead9df;color:#513540;border-color:#b58d9c;}
+.ambient-stage .notice.danger {background:#f0dade;color:#802d48;border-color:#ba8194;max-width:calc(100% - 32px);margin:16px;}
+.ambient-stage .notice .button {display:block;margin-top:10px;}
+.home-shirt-viewer .ambient-cloth-stage,.showcase-model .ambient-cloth-stage {padding-top:64px;}
+.home-shirt-viewer .ambient-cloth-stage .webgl-host,.showcase-model .ambient-cloth-stage .webgl-host {min-height:0;height:calc(100% - 56px);}
+.hero > *, .fit-workspace > *, .product-studio .fit-controls > *, .cart-layout > *, .checkout-layout > * {min-width:0;}
+.cart-line h2,.checkout-summary li > div {overflow-wrap:anywhere;}
+.site-header :focus-visible {outline:2px solid #f0cedb;outline-offset:4px;}
+.fit-swatches button {min-width:32px;min-height:32px;}
+.home-spin,.showcase-pause {min-height:44px;}
+@media(max-width:1000px) {
+ .site-header[data-liquid] {height:auto;min-height:76px;gap:12px;padding:12px 16px;}
+ .site-header > .desktop-navigation,.site-header .header-cta {display:none;}
+ .mobile-cart {display:block;margin-inline-start:auto;}
+ .mobile-cart .cart-nav-link {display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;}
+ .mobile-cart .cart-link-label {position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap;}
+ .site-header > .mobile-nav {display:block;position:relative;margin-inline-start:0;}
+ .mobile-nav summary {display:flex;align-items:center;justify-content:center;min-width:44px;min-height:44px;padding:2px 10px;border:1px solid #9e6b7a;border-radius:6px;list-style:none;}
+ .mobile-nav summary::-webkit-details-marker {display:none;}
+ .mobile-nav nav {position:absolute;z-index:1;inset-inline-end:0;inset-inline-start:auto;top:calc(100% + 12px);width:min(300px,calc(100vw - 48px));display:flex;flex-direction:column;max-height:min(70dvh,520px);overflow-y:auto;overscroll-behavior:contain;padding:12px;}
+ .mobile-nav nav a {display:flex;align-items:center;min-height:44px;padding:8px 12px;}
+}
+@media(max-width:400px) {
+ .home-shirt-dock[data-liquid] {gap:7px;padding:8px;}
+ .home-shirt-dock .fit-swatches {gap:4px;}
+ .home-shirt-dock .fit-swatches button {width:30px;height:30px;min-width:30px;min-height:30px;}
+ .ambient-cloth-controls .button {font-size:10px;padding:5px 7px;min-height:36px;}
+ .home-spin {padding:5px 7px;}
+}
+@media(prefers-reduced-motion:reduce) {html{scroll-behavior:auto;}.product-card:hover .art-panel .product-art{transform:none;}}
+@media(forced-colors:active) {
+ .garment-studio .fit-controls,.garment-studio .fit-analysis,.garment-studio .field,.garment-studio .fit-help,.garment-studio .fit-analysis td,.garment-studio .fit-analysis th,.garment-studio .fit-measure-strip,.recovery-panel {background:Canvas;color:CanvasText;border-color:CanvasText;}
+ .garment-studio .fit-size-options button[aria-pressed="true"] {background:Highlight;color:HighlightText;}
+}
+
+.site-header .brand:hover,.site-header .header-cta:hover,.site-header .cart-nav-link:hover,.site-header .mobile-nav nav a:hover {color:#fff1e6;}
+.cart-line.has-error {background:#f0dade;border-color:#ba8194;}
+.undo-notice {background:#ead9df;color:#513540;border:1px solid #b58d9c;flex-wrap:wrap;}
+.checkout-form .field-error,.cart-layout .field-error,.admin-form-panel .field-error,.storage-panel > .field-error {color:#802d48;}
+.checkout-form .field [aria-invalid="true"] {border-color:#913e5a;}
+@media(forced-colors:active) {.cart-line.has-error,.undo-notice{background:Canvas;color:CanvasText;border-color:CanvasText;}.checkout-form .field-error,.cart-layout .field-error,.admin-form-panel .field-error,.storage-panel > .field-error{color:CanvasText;}}
+
+/* Stage 1 browser findings: preserve one-row color docks and readable category titles. */
+.catalog-title {background:#d7c7ce;border:1px solid #b798a6;box-shadow:inset 0 0 0 4px #f7e8ed35;border-radius:2px;}
+.catalog-title h1 {color:#51283c;}
+.catalog-title p,.catalog-title .eyebrow {color:#704455;}
+.showcase-dock[data-liquid] {width:max-content;max-width:calc(100% - 24px);}
+.showcase-dock .fit-swatches,.home-shirt-dock .fit-swatches {flex:0 0 auto;flex-wrap:nowrap;}
+.button.outline:not(:focus-visible) {outline:none;}
+.button.outline:focus-visible {outline:2px solid #bd7c99;outline-offset:3px;}
+@media(forced-colors:active) {.catalog-title{background:Canvas;color:CanvasText;border-color:CanvasText;}.catalog-title h1,.catalog-title p,.catalog-title .eyebrow{color:CanvasText;}}
+
+.shop-home .home-shirt-stage {width:100%;min-width:0;max-width:100%;}
+.ambient-stage .stage-loading {color:#d5bdc7;}
+@media(max-width:1000px) {.shop-home .hero{grid-template-columns:minmax(0,1fr);}.shop-home .home-shirt-stage{max-width:560px;min-height:535px;margin-inline:auto;}}
+
+/* Keep the studio caption in document flow, clear of the interaction instructions. */
+.fitting-stage:not(.ambient-stage) > .stage-caption {position:static;inset:auto;width:auto;transform:none;margin:0;padding:14px 20px;display:flex;flex-wrap:wrap;gap:8px;border-bottom:1px solid #bc8fa42b;color:#d5bac8;}
+.fitting-stage:not(.ambient-stage) > .stage-caption span:last-child {color:#b897aa;}
+.garment-stage .viewer-views .button[aria-pressed="true"] {background:#d6b5c7;color:#3f1f33;border-color:#d6b5c7;}

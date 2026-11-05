@@ -1,0 +1,45 @@
+{
+  "name": "niche-shop",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "eslint",
+    "test": "node --experimental-strip-types --test tests/*.test.mts",
+    "typecheck": "tsc --noEmit",
+    "admin:create": "node --experimental-strip-types scripts/create-admin.mts",
+    "backup": "node --experimental-strip-types scripts/backup.mts",
+    "uploads:cleanup": "node --experimental-strip-types scripts/cleanup-uploads.mts",
+    "reservations:expire": "node --experimental-strip-types scripts/expire-reservations.mts",
+    "test:http": "node --experimental-strip-types scripts/http-smoke.mts",
+    "test:http:isolated": "node --experimental-strip-types scripts/http-isolated.mts",
+    "admin:reset-password": "node --experimental-strip-types scripts/reset-admin-password.mts",
+    "backup:verify": "node --experimental-strip-types scripts/verify-backup.mts",
+    "test:recovery:isolated": "node --experimental-strip-types scripts/recovery-drill.mts"
+  },
+  "dependencies": {
+    "@next/env": "16.4.3",
+    "next": "16.4.3",
+    "react": "19.3.0",
+    "react-dom": "19.3.0",
+    "sharp": "^0.35.5",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "@tailwindcss/turbopack": "^4",
+    "@types/node": "^24.19.2",
+    "@types/react": "^19",
+    "@types/react-dom": "^19",
+    "@types/three": "^0.186.0",
+    "eslint": "^9",
+    "eslint-config-next": "16.4.3",
+    "tailwindcss": "^4",
+    "typescript": "^5"
+  },
+  "type": "module",
+  "engines": {
+    "node": ">=24 <25"
+  }
+}

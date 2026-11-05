@@ -1,0 +1,23 @@
+.git
+.next
+node_modules
+niche-shop
+storage
+uploads
+.env*
+*.log
+*.pem
+*.key
+secrets
+credentials
+*.sqlite*
+*.db*
+backups
+private
+.npmrc
+*.pfx
+*.p12
+*.keystore
+
+# local isolated source/build review snapshots
+.http-tests

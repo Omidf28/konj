@@ -1,0 +1,28 @@
+/** Export the same complete reference body used by the viewer as a self-contained GLB. */
+import { mkdirSync, writeFileSync } from 'node:fs';
+import { createHash } from 'node:crypto';
+import * as T from 'three';
+import { buildHumanMannequin } from '../src/lib/human-mannequin.ts';
+import { disposeFittingObject } from '../src/lib/fitting-geometry.ts';
+const model = buildHumanMannequin('B'), mesh = model.group.getObjectByName('body-torso') as T.Mesh<T.BufferGeometry, T.MeshPhysicalMaterial>;
+const positions = mesh.geometry.getAttribute('position').array as Float32Array, normals = mesh.geometry.getAttribute('normal').array as Float32Array, index = mesh.geometry.getIndex()!.array as Uint16Array;
+const parts = [Buffer.from(positions.buffer, positions.byteOffset, positions.byteLength), Buffer.from(normals.buffer, normals.byteOffset, normals.byteLength), Buffer.from(index.buffer, index.byteOffset, index.byteLength)];
+const bin = Buffer.concat(parts);
+const box = mesh.geometry.boundingBox!;
+const document = { asset: { version: '2.0', generator: 'Konj complete MakeHuman adult reference', copyright: 'MakeHuman graphical assets - CC0-1.0' }, extras: { license: 'CC0-1.0', referenceHeightMeters: 1.76, source: 'assets/makehuman/adult-source.json', completeBody: true, neutralPelvis: true }, scene: 0, scenes: [{ nodes: [0] }], nodes: [{ name: 'Complete adult human - 176cm', mesh: 0 }], meshes: [{ name: 'Full anatomical body', primitives: [{ attributes: { POSITION: 0, NORMAL: 1 }, indices: 2, material: 0, mode: 4 }] }], materials: [{ name: 'Matte porcelain', pbrMetallicRoughness: { baseColorFactor: [mesh.material.color.r, mesh.material.color.g, mesh.material.color.b, 1], metallicFactor: .02, roughnessFactor: .58 } }], buffers: [{ byteLength: bin.length }], bufferViews: parts.map((part, i) => ({ buffer: 0, byteOffset: parts.slice(0, i).reduce((n, p) => n + p.length, 0), byteLength: part.length, target: i === 2 ? 34963 : 34962 })), accessors: [{ bufferView: 0, componentType: 5126, count: positions.length / 3, type: 'VEC3', min: box.min.toArray(), max: box.max.toArray() }, { bufferView: 1, componentType: 5126, count: normals.length / 3, type: 'VEC3' }, { bufferView: 2, componentType: 5123, count: index.length, type: 'SCALAR' }] };
+const raw = Buffer.from(JSON.stringify(document)), json = Buffer.alloc(Math.ceil(raw.length / 4) * 4, 32);
+raw.copy(json);
+const header = Buffer.alloc(12), jh = Buffer.alloc(8), bh = Buffer.alloc(8);
+header.writeUInt32LE(0x46546c67);
+header.writeUInt32LE(2, 4);
+header.writeUInt32LE(12 + 8 + json.length + 8 + bin.length, 8);
+jh.writeUInt32LE(json.length);
+jh.writeUInt32LE(0x4e4f534a, 4);
+bh.writeUInt32LE(bin.length);
+bh.writeUInt32LE(0x004e4942, 4);
+const glb = Buffer.concat([header, jh, json, bh, bin]);
+mkdirSync('public/models', { recursive: true });
+writeFileSync('public/models/human-adult.glb', glb);
+writeFileSync('assets/makehuman/adult-model.json', JSON.stringify({ file: 'public/models/human-adult.glb', sha256: createHash('sha256').update(glb).digest('hex'), bytes: glb.length, vertices: positions.length / 3, triangles: index.length / 3, heightMeters: 1.76, completeBody: true, neutralPelvis: true, license: 'CC0-1.0' }, null, 2) + '\n');
+console.log('Complete adult GLB exported:', glb.length, 'bytes');
+disposeFittingObject(model.group);

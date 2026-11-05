@@ -1,0 +1,119 @@
+/* Liquid-glass direction: refractive-looking rims, translucent volume and a moving light reflection.
+   This is CSS compositing, not native iOS glass. Keep controls opaque enough for legibility. */
+body {
+  background: radial-gradient(ellipse 900px 600px at 12% 0%, #61778820, transparent 75%),
+    radial-gradient(ellipse 750px 800px at 98% 25%, #72668c16, transparent 80%), #111518;
+}
+[data-liquid] {
+  --glass-x: 18%; --glass-y: 0%;
+  position: relative;
+  background-color: #222a30;
+  background-image: linear-gradient(145deg,#ffffff0d,transparent 44%,#ffffff03);
+  border: 1px solid #ffffff24;
+  box-shadow: inset 0 1px 0 #ffffff38, inset 0 -1px 0 #b3d4e212, 0 16px 48px #00000020;
+}
+[data-liquid]::before {
+  content: ""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background: radial-gradient(ellipse 260px 180px at var(--glass-x) var(--glass-y),#eafaff15,transparent 72%);
+}
+[data-liquid]::after {
+  content: ""; position:absolute; inset:-1px; padding:1px; border-radius:inherit; pointer-events:none;
+  background: linear-gradient(125deg,#ffffff80 0%,#cde4ff30 22%,transparent 42%,#bddaff35 72%,#ffffff55);
+  -webkit-mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0);
+  -webkit-mask-composite:xor; mask-composite:exclude;
+}
+@supports ((backdrop-filter: blur(24px)) or (-webkit-backdrop-filter: blur(24px))) {
+  [data-liquid] { background-color:#20282dc9; backdrop-filter:blur(24px) saturate(150%); -webkit-backdrop-filter:blur(24px) saturate(150%); }
+  [data-liquid="dock"] { background-color:#c8e4ed19; backdrop-filter:blur(32px) saturate(170%); -webkit-backdrop-filter:blur(32px) saturate(170%); }
+  .showcase-copy[data-liquid] { background-color:#20293070; }
+}
+.site-header[data-liquid] { border-radius:28px; box-shadow:inset 0 1px 0 #ffffff30,0 10px 35px #0003; }
+.site-header .desktop-navigation a { border-radius:999px; padding-inline:10px; transition:background-color .2s,color .2s; }
+.site-header .desktop-navigation a:hover { background:#e6f6ff10; }
+.site-header .desktop-navigation a[aria-current="page"] { background:#d8f8bd13; }
+.desktop-navigation a[aria-current="page"]::after { inset-inline:18px; height:2px; bottom:4px; }
+.header-cta { background:linear-gradient(140deg,#ffffff18,#ffffff05); box-shadow:inset 0 1px 0 #fff2; }
+.category-tabs { display:flex; flex-wrap:wrap; width:fit-content; padding:6px; background:#b4d6e709; border:1px solid #ffffff15; border-radius:28px; box-shadow:inset 0 1px 0 #ffffff15; }
+.category-tabs a { border-color:transparent; background:transparent; min-height:44px; display:inline-flex; align-items:center; }
+.category-tabs a:hover { background:#ffffff12; }
+.category-tabs a[aria-current="page"] { background:linear-gradient(135deg,#e2facd,#c5e8a6); box-shadow:inset 0 1px 0 #fff9,0 3px 12px #a3cb6c22; color:#1d3017; }
+.catalog-form[data-liquid] { border-radius:26px; padding:24px; }
+.catalog-form .search-field,.catalog-form select,.catalog-form input { background-color:#111b22b8; border-color:#cce6f52b; border-radius:14px; }
+.catalog-form label { color:#d4e0e5; }
+.product-card[data-liquid] { border-radius:26px; padding:7px; }
+.product-card .art-panel { border-radius:20px; overflow:hidden; }
+.product-card .card-info { padding:19px 13px 12px; }
+.product-card[data-liquid]:hover { border-color:#d2eeff60; box-shadow:inset 0 1px 0 #fff5,0 16px 44px #0005; }
+.product-card:focus-within { outline:2px solid var(--accent); outline-offset:3px; }
+.product-card .status { backdrop-filter:blur(12px); -webkit-backdrop-filter:blur(12px); border:1px solid #ffffff35; }
+.button.outline,.showcase-pause { background-image:linear-gradient(150deg,#ffffff0c,transparent); box-shadow:inset 0 1px 0 #ffffff1c; }
+.button.primary { background-image:linear-gradient(135deg,#ffffff2b,transparent 65%); box-shadow:inset 0 1px 0 #ffffff75,0 5px 18px #b7e36818; }
+.button:active:not(:disabled) { transform:translateY(1px); }
+.shirt-showcase { border-color:#f0faff30; box-shadow:inset 0 1px 0 #fff2,0 30px 90px #0003; }
+.hoodie-showcase { background:radial-gradient(ellipse at 27% 22%,#a4b8a16b,transparent 58%),radial-gradient(ellipse at 6% 95%,#988b7855,transparent 65%),linear-gradient(135deg,#24302c,#161e25); }
+.showcase-edition { position:absolute; left:7%; top:7%; font-size:clamp(130px,19vw,260px); line-height:1; font-weight:100; letter-spacing:-.09em; color:#e6f8ff09; direction:ltr; user-select:none; pointer-events:none; }
+.showcase-orbit { border-color:#ffffff16; box-shadow:inset 0 0 60px #d6f5ff04; }
+.showcase-copy { border-radius:32px; }
+.showcase-copy .lab-eyebrow { font-size:10px; color:#d0e4dd; letter-spacing:.14em; }
+.showcase-copy h2 { font-weight:650; letter-spacing:-1.8px; }
+.showcase-copy h2 em { background:linear-gradient(110deg,#f6f8f0,#b8d7c3); background-clip:text; -webkit-background-clip:text; color:transparent; }
+.showcase-dock { border-color:#f0faff40; padding:11px 19px; box-shadow:inset 0 1px 0 #ffffff65,inset 0 -1px 0 #ffffff18,0 14px 35px #0005; }
+.showcase-dock .fit-swatches button { box-shadow:inset 0 1px 2px #fff7,0 2px 5px #0005; }
+.showcase-pause { border-color:#ffffff35; background-color:#ffffff0b; }
+.showcase-pause:hover { background-color:#ffffff20; }
+.garment-stage { background:radial-gradient(ellipse at 45% 25%,#b8cbd322,transparent 65%),linear-gradient(160deg,#262f3738,#141c2466); box-shadow:inset 0 1px 0 #ffffff20; }
+.garment-studio .fit-controls[data-liquid] { padding:12px; }
+.garment-studio .fit-analysis[data-liquid] { padding:22px; }
+.garment-studio .fit-check input { accent-color:#c8eaa3; }
+.garment-studio .fit-range input { accent-color:#c8eaa3; }
+.garment-stage .viewer-views .button { box-shadow:inset 0 1px 0 #fff2; }
+.try-on-stamp { border-color:#d8efcb45; color:#d2eac0; background:linear-gradient(135deg,#c8e4ce12,#ffffff03); box-shadow:inset 0 1px 0 #fff2; }
+@media(max-width:640px) {
+  .site-header[data-liquid] { border-radius:22px; }
+  .category-tabs { width:100%; gap:3px; border-radius:22px; }
+  .category-tabs a { padding:7px 11px; font-size:12px; }
+  .catalog-form[data-liquid] { padding:17px; border-radius:22px; }
+  .product-card[data-liquid] { border-radius:21px; padding:5px; }
+  .product-card .art-panel { border-radius:16px; }
+  .product-card .card-info { padding:13px 8px 8px; }
+  .showcase-edition { top:43%; font-size:180px; }
+  .showcase-copy { border-radius:25px; }
+  .garment-studio .fit-controls[data-liquid] { padding:9px; }
+}
+@media(prefers-reduced-motion:reduce) {
+  [data-liquid]::before { background:linear-gradient(145deg,#ffffff08,transparent); }
+  .button:active:not(:disabled) { transform:none; }
+  .site-header .desktop-navigation a { transition:none; }
+}
+@media(prefers-reduced-transparency:reduce) {
+  [data-liquid],.showcase-copy[data-liquid],.showcase-dock[data-liquid] { background:#232e34; backdrop-filter:none; -webkit-backdrop-filter:none; }
+  [data-liquid]::before { display:none; }
+}
+@media(forced-colors:active) {
+  [data-liquid]::before,[data-liquid]::after { display:none; }
+  .showcase-copy h2 em { background:none;color:CanvasText; }
+}
+@media print { [data-liquid] { background:white;color:black;box-shadow:none;backdrop-filter:none; } [data-liquid]::before,[data-liquid]::after { display:none; } }
+
+.showcase-dock[data-liquid] { position:absolute; }
+.product-card[data-liquid] { backdrop-filter:blur(12px) saturate(125%); -webkit-backdrop-filter:blur(12px) saturate(125%); }
+.site-header { gap:22px; }
+.site-header > nav { gap:12px; }
+@media(min-width:901px) and (max-width:1200px) { .site-header .header-cta { display:none; } }
+@media(prefers-reduced-transparency:reduce) { .product-card[data-liquid] { backdrop-filter:none; -webkit-backdrop-filter:none; } }
+
+.ambient-turn-controls { position:absolute; bottom:10px; left:50%; transform:translateX(-50%); display:flex; gap:12px; align-items:center; white-space:nowrap; color:#dae4e2; background:#14212b80; border:1px solid #ffffff23; border-radius:999px; padding:5px 8px; }
+.ambient-turn-controls span { font-size:10px; }
+.ambient-turn-controls button { width:40px; height:40px; border-radius:50%; font-size:22px; background:#ffffff12; color:#eff5ec; }
+.ambient-turn-controls button:hover { background:#ffffff28; }
+.ambient-turn-controls button:disabled { opacity:.4; cursor:default; }
+@media(max-width:640px) { .ambient-turn-controls { gap:5px; bottom:0; } .ambient-turn-controls span { font-size:9px; } }
+
+.showcase-model { bottom:110px; }
+.showcase-model .ambient-stage .webgl-host { height:calc(100% - 52px); }
+.ambient-turn-controls { bottom:0; }
+
+/* Explicit views make the hood and back print reachable without dragging. */
+.ambient-turn-controls button.ambient-view { width:auto; min-width:48px; padding:0 10px; font-size:12px; border-radius:20px; }
+.ambient-turn-controls button:focus-visible { outline:2px solid #d6f5bd; outline-offset:3px; }

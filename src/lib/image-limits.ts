@@ -1,0 +1,2 @@
+export const MAX_ORIGINAL_IMAGE_PIXELS = 40_000_000;
+export const MAX_IMAGE_SIDE = 12_000;

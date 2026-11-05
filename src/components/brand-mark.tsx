@@ -1,0 +1,2 @@
+/** Original angular K/corner mark, drawn for Konj. No stock icon or band insignia. */
+export function BrandMark() { return <svg className="brand-mark" viewBox="0 0 82 86" aria-hidden="true" focusable="false"><path d="M12 8 28 14 28 38 49 14 69 8 42 42 71 78 50 70 28 47 28 69 12 78 16 43Z" fill="currentColor"/><path d="M6 26 6 6 24 6 M58 6 76 6 76 26 M6 60 6 80 24 80 M58 80 76 80 76 60" fill="none" stroke="currentColor" strokeWidth="2" opacity=".55"/></svg>; }

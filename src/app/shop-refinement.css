@@ -1,0 +1,32 @@
+/* Quiet retail surfaces; glass is reserved for floating controls. */
+body { background:#151719; }
+[data-liquid] { background:#202326; background-image:none; box-shadow:none; border-color:#ffffff18; backdrop-filter:none; -webkit-backdrop-filter:none; }
+[data-liquid]::before,[data-liquid]::after { display:none; }
+.site-header[data-liquid],.showcase-dock[data-liquid] { background:#202326dc; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); border-radius:14px; }
+.product-card[data-liquid] { padding:0; background:transparent; border-color:transparent; backdrop-filter:none; -webkit-backdrop-filter:none; }
+.product-card .art-panel { border-radius:12px; }
+.catalog-form[data-liquid],.garment-studio .fit-analysis[data-liquid] { border-radius:12px; }
+.category-tabs { border:0; border-bottom:1px solid #ffffff20; border-radius:0; background:transparent; box-shadow:none; padding:0 0 8px; }
+.category-tabs a[aria-current="page"] { background:#e9e4d9; color:#202326; box-shadow:none; }
+.shirt-showcase { background:#24282b; border-radius:16px; box-shadow:none; }
+.showcase-copy[data-liquid] { background:transparent; border:0; border-radius:0; backdrop-filter:none; -webkit-backdrop-filter:none; box-shadow:none; }
+.showcase-copy h2 { font-size:clamp(32px,4vw,56px); letter-spacing:0; line-height:1.4; }
+.showcase-copy p { max-width:28ch; line-height:1.9; }
+.showcase-copy .showcase-note { font-size:12px; margin-top:20px; color:#bac1c3; }
+.hero-edition,.hero-note,.orbital-ring,.stage-edition,.stage-large-type,.stage-coordinate,.vertical-type,.hero-asterisk,.stage-small-sticker,.ticker { display:none; }
+.hero h1 { font-size:clamp(30px,4.6vw,60px); line-height:1.55; letter-spacing:0; }
+.hero-stage { border-radius:16px; background:#252b2d; box-shadow:none; }
+.ambient-cloth-controls { position:absolute; z-index:3; top:12px; left:12px; right:12px; display:flex; flex-wrap:wrap; justify-content:center; gap:5px; }
+.ambient-cloth-controls .button { padding:6px 10px; font-size:11px; min-height:36px; background:#202629dd; border:1px solid #ffffff25; border-radius:8px; }
+.ambient-cloth-controls .button[aria-pressed="true"] { background:#e9e4d9; color:#202326; }
+@media(max-width:640px) { .showcase-copy h2 {font-size:32px;} .showcase-copy p {font-size:13px;} .ambient-cloth-controls {top:0;gap:4px;} .ambient-cloth-controls .button {font-size:10px;padding:5px 8px;} }
+@media(prefers-reduced-transparency:reduce) { .site-header[data-liquid],.showcase-dock[data-liquid] { background:#202326;backdrop-filter:none;-webkit-backdrop-filter:none; } }
+@media(forced-colors:active) { [data-liquid],.shirt-showcase,.ambient-cloth-controls .button {background:Canvas;color:CanvasText;border:1px solid CanvasText;} }
+
+:root { --accent:#ddd4bb; }
+.shop-home .hero h1 {font-size:clamp(30px,4.6vw,60px);line-height:1.55;letter-spacing:0;}
+.shop-home .hero-stage {border-radius:16px;background:#e7e3d8;box-shadow:none;}
+.shop-home .hero-stage::before,.shirt-showcase::before {display:none;}
+.shop-home .floating-sticker,.shop-home .hero-note,.shop-home .stage-caption > span:last-child {display:none;}
+.shop-home .hero-shirt {transform:rotate(-4deg);}
+.shop-home .hero-copy > .eyebrow {border:0;border-radius:0;background:transparent;padding:0;color:#b9c0bd;}

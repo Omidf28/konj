@@ -1,0 +1,17 @@
+services:
+  shop:
+    build: .
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      NODE_ENV: production
+      APP_ORIGIN: "https://replace-with-your-approved-domain.invalid"
+      DATABASE_PATH: /app/storage/konj.sqlite
+      UPLOAD_DIR: /app/storage/uploads
+      COOKIE_SECURE: "1"
+      TRUST_PROXY: "0"
+    volumes:
+      - shop-data:/app/storage
+volumes:
+  shop-data:
