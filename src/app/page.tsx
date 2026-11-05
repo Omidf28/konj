@@ -1,3 +1,4 @@
+import { ForestNotes, PineEmblem } from "@/components/forest-notes";
 import { GothicDivider } from "@/components/gothic-divider";
 import { BotanicalSeal } from "@/components/botanical-seal";
 import { HomeShirt } from "@/components/home-shirt";
@@ -21,7 +22,7 @@ export default function Home() {
     <main id="main" className="shop-home">
       <section className="hero shell">
         <div className="hero-copy">
-          <BotanicalSeal />
+          <PineEmblem />
           <p className="eyebrow accent">
             کُنج / پوشاک و چاپ مستقل
           </p>
@@ -57,6 +58,7 @@ export default function Home() {
           <HomeShirt base={shirtBase}/>
         </div>
       </section>
+      <ForestNotes />
       <section className="section shell">
         <div className="section-heading">
           <GothicDivider />
@@ -136,7 +138,7 @@ export default function Home() {
             پیش‌نمایش تقریبی است؛ سفارش‌ها فعلاً آزمایشی‌اند.
           </p>
         </div>
-        <div className="studio-art-plate" aria-hidden="true"><GothicFrame /><BotanicalSeal /><span>کُنج</span><small dir="ltr">ART / FABRIC / EVERYDAY</small></div>
+        <div className="studio-art-plate" aria-hidden="true"><GothicFrame /><PineEmblem /><span>کُنج</span><small dir="ltr">ART / FABRIC / EVERYDAY</small></div>
       </section>
       <section className="section shell">
         <div className="section-heading">
