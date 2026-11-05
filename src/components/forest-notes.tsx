@@ -15,24 +15,27 @@ export function PineEmblem() {
 
 function CoffeeDrawing() {
   return (
-    <svg className="coffee-drawing" viewBox="0 0 240 180" fill="none" aria-hidden="true">
-      <ellipse cx="113" cy="145" rx="91" ry="15" fill="currentColor" opacity=".08"/>
-      <g stroke="currentColor" strokeWidth="1.5">
-        <path d="M48 70c1 35 8 60 22 67 20 9 63 9 83-1 13-9 20-36 21-66"/>
-        <ellipse cx="111" cy="70" rx="63" ry="17"/>
-        <ellipse cx="111" cy="72" rx="53" ry="11" fill="currentColor" fillOpacity=".78"/>
-        <path d="M174 80c47-18 53 49-10 43m9-32c30-9 32 22-5 23M33 141c23 28 136 31 163-1M65 90c2 16 4 29 9 35" />
-        <g opacity=".5">
-          <path d="M86 45c-17-19 17-22 1-40M112 43c-19-24 23-24 7-41M139 45c-10-16 13-20 5-33"/>
-          <path d="m48 153 8 4m9-1 8 4m10-1 7 4m12-2 6 3m15-3 6 2"/>
-        </g>
+    <svg className="coffee-drawing" viewBox="0 0 240 240" fill="none" aria-hidden="true">
+      <circle cx="120" cy="120" r="113" fill="#b44843" stroke="#261f20" strokeWidth="5"/>
+      <path d="M20 156h200a112 112 0 0 1-200 0Z" fill="#d9cfaa"/>
+      <g stroke="#f2e9ce" strokeWidth="4" strokeLinejoin="round">
+        <path d="m73 22 20 15-21 17 26 15-19 17 23 15"/>
+        <path d="m111 10 24 20-21 20 25 17-20 17 12 17"/>
+        <path d="m153 20 18 17-20 18 17 14-19 20"/>
       </g>
-      <g transform="translate(167 137) rotate(-14)">
-        <ellipse rx="43" ry="27" fill="#b47b51" stroke="#674531" strokeWidth="1.5"/>
-        <path d="M-41-3c4-23 73-27 82-3l-6 7-10-1-7 7-12-3-11 5-10-6-11 1z" fill="#d8afa0" stroke="#885a4c" strokeWidth="1"/>
-        <ellipse cy="-3" rx="12" ry="8" fill="#79604c" stroke="#674531"/>
-        <path d="m-28-9 5-2m7-8 3 3m26-1 5 2m9 8-3 3m-36 9 5 1m18-4 4 2" stroke="#f8e8d2" strokeWidth="2" strokeLinecap="round"/>
+      <ellipse cx="114" cy="186" rx="75" ry="10" fill="#f0e7cd" stroke="#261f20" strokeWidth="3"/>
+      <path d="M63 110h95l-8 58c-3 20-72 20-77 0Z" fill="#211e20" stroke="#211e20" strokeWidth="3"/>
+      <path d="M158 120c40-9 42 40-4 39m3-27c22-5 21 17-2 17" stroke="#211e20" strokeWidth="8"/>
+      <ellipse cx="110" cy="110" rx="47" ry="10" fill="#eee5ce" stroke="#211e20" strokeWidth="3"/>
+      <ellipse cx="110" cy="112" rx="37" ry="5" fill="#49302b"/>
+      <path d="m88 149 11-12 13 15 12-15 13 12" stroke="#d2ab7e" strokeWidth="3"/>
+      <g transform="translate(170 180) rotate(-14)" stroke="#352326" strokeWidth="2">
+        <ellipse rx="34" ry="23" fill="#bb8954"/>
+        <path d="M-33-4c4-19 61-23 66 0l-8 6-9-2-8 7-11-4-9 3-10-7Z" fill="#a74048"/>
+        <ellipse cy="-3" rx="9" ry="6" fill="#6d4c36"/>
+        <path d="m-23-6 4-2m4-8 3 2m17-1 4 2m7 7-2 3m-24 6 3 1" stroke="#f1dfb7"/>
       </g>
+      <circle cx="120" cy="120" r="106" stroke="#e7cc9d" strokeWidth="1" opacity=".6"/>
     </svg>
   );
 }
@@ -67,7 +70,7 @@ export function ForestNotes() {
         <span className="forest-object-text"><small>قهوه و دونات</small><strong>ماگ‌های کُنج <span aria-hidden="true">↖</span></strong></span>
       </Link>
       <div className="forest-object log-note">
-        <LogDrawing />
+        <div className="log-medallion"><LogDrawing /></div>
         <span className="forest-object-text"><small>از دل جنگل</small><span>یادداشتی از جنگل</span></span>
       </div>
     </section>

@@ -188,3 +188,62 @@
 @media print, (forced-colors:active) {
   .shop-home .home-shirt-stage > .marble-figure { display:none; }
 }
+
+/* Limited-ink medallions echo the supplied illustrated print references. */
+@media screen {
+  .forest-notes {
+    padding:30px clamp(18px,3vw,40px);
+    background:#67142b;
+    border-block:4px double #b68a69;
+    box-shadow:inset 0 0 0 9px #39101c33;
+  }
+  .forest-notes h2 { color:#f0e3c7; }
+  .forest-notes-heading p,.forest-note-index { color:#ddc7ad; }
+  .forest-notes-heading .pine-emblem { color:#dbc99e; }
+  .forest-object { border-color:#ceac7944; gap:16px; }
+  .forest-object-text small { color:#d3b691; }
+  .forest-object-text strong,.forest-object-text > span { color:#f1e4c8; }
+  .coffee-drawing { width:176px; max-width:100%; height:auto; }
+  .log-medallion {
+    display:grid;
+    place-items:center;
+    width:176px;
+    max-width:100%;
+    aspect-ratio:1;
+    border:4px solid #261f20;
+    outline:1px solid #ba9571;
+    outline-offset:-10px;
+    border-radius:50%;
+    background:linear-gradient(160deg,#a7433f 0 56%,#d9cfaa 56%);
+    transform:rotate(5deg);
+  }
+  .log-medallion .log-drawing { width:95%; height:auto; color:#291f1c; transform:rotate(-5deg); }
+  .coffee-note:hover { background:#f4e1b90a; }
+  .coffee-note:hover strong { color:#fff4d7; }
+  .coffee-note:focus-visible { outline-color:#f3d7a3; }
+  .shop-home .home-shirt-stage > .room-lamp {
+    position:absolute;
+    z-index:0;
+    left:1%;
+    bottom:12%;
+    width:clamp(85px,19%,130px);
+    height:auto;
+    pointer-events:none;
+  }
+  .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:auto; right:3%; }
+}
+@media screen and (max-width:700px) {
+  .forest-notes-heading { border-color:#ceac7944; }
+  .coffee-drawing,.log-medallion { width:140px; }
+  .shop-home .home-shirt-stage > .room-lamp { width:82px; bottom:13%; }
+}
+@media print, (forced-colors:active) {
+  .room-lamp { display:none; }
+}
+@media (forced-colors:active) {
+  .forest-notes,.forest-object { background:Canvas; color:CanvasText; box-shadow:none; }
+  .forest-notes h2,.forest-notes-heading p,.forest-note-index,
+  .forest-object-text small,.forest-object-text strong,.forest-object-text > span { color:CanvasText; }
+  .log-medallion { display:none; }
+  .coffee-note:hover,.coffee-note:hover strong { background:Canvas; color:LinkText; }
+}
