@@ -1,4 +1,4 @@
-import { MarbleFigure, RoomLamp } from "@/components/marble-figure";
+import { MarbleFigure } from "@/components/marble-figure";
 import { ForestNotes, PineEmblem } from "@/components/forest-notes";
 import { GothicDivider } from "@/components/gothic-divider";
 import { BotanicalSeal } from "@/components/botanical-seal";
@@ -55,7 +55,6 @@ export default function Home() {
           </nav>
         </div>
         <div className="hero-stage home-shirt-stage">
-          <RoomLamp />
           <MarbleFigure />
           <GothicFrame />
           <HomeShirt base={shirtBase}/>

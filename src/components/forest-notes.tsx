@@ -56,12 +56,33 @@ function LogDrawing() {
   );
 }
 
+function CherryPie() {
+  return (
+    <svg className="pie-medallion" viewBox="0 0 180 180" fill="none" aria-hidden="true">
+      <circle cx="90" cy="90" r="83" fill="#ba5849" stroke="#281e20" strokeWidth="4"/>
+      <circle cx="90" cy="90" r="76" stroke="#dfc898"/>
+      <ellipse cx="89" cy="123" rx="63" ry="16" fill="#e9ddbb" stroke="#392b24" strokeWidth="2"/>
+      <path d="m36 112 91-53 24 47-95 26Z" fill="#a56836" stroke="#392b24" strokeWidth="2"/>
+      <path d="m38 105 88-51 19 43-91 27Z" fill="#702332" stroke="#392b24" strokeWidth="2"/>
+      <g fill="#c14945">
+        <circle cx="63" cy="105" r="6"/><circle cx="83" cy="95" r="7"/>
+        <circle cx="108" cy="97" r="6"/><circle cx="119" cy="79" r="6"/>
+        <circle cx="130" cy="99" r="5"/><circle cx="87" cy="112" r="5"/>
+      </g>
+      <path d="m40 100 85-53 22 47-13 4-19-32-70 44Z" fill="#dab674" stroke="#69462d" strokeWidth="2"/>
+      <path d="m65 88 18 22m4-35 19 24m-53 10 72-35m-51 42 65-31" stroke="#e0bc7b" strokeWidth="8"/>
+      <path d="m124 48 8 4 2 9 7 5 1 9 7 6-1 9 5 7-10 6-6-6-1-9-6-6-1-10-6-7-3-12Z" fill="#e7c88c" stroke="#69462d" strokeWidth="2"/>
+      <path d="m58 120 12 4m9-5 8 2m10-6 7 1" stroke="#edcc92" strokeWidth="2"/>
+    </svg>
+  );
+}
+
 export function ForestNotes() {
   return (
     <section className="forest-notes shell" aria-labelledby="forest-notes-title">
       <div className="forest-notes-heading">
         <span className="forest-note-index" dir="ltr">FIELD NOTES / 01</span>
-        <PineEmblem />
+        <CherryPie />
         <h2 id="forest-notes-title">قهوه و یک توقف کوتاه.</h2>
         <p>میان کاج‌ها و پرده‌های سرخ.</p>
       </div>

@@ -24,29 +24,3 @@ export function MarbleFigure() {
     </svg>
   );
 }
-
-export function RoomLamp() {
-  return (
-    <svg className="room-lamp" viewBox="0 0 160 400" fill="none" aria-hidden="true">
-      <defs>
-        <radialGradient id="konj-lamp-light">
-          <stop stopColor="#ffca89" stopOpacity=".4"/>
-          <stop offset="1" stopColor="#ffb56d" stopOpacity="0"/>
-        </radialGradient>
-        <linearGradient id="konj-lamp-shade" x1="35" y1="0" x2="120" y2="0" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#7e1826"/><stop offset=".5" stopColor="#d45b49"/><stop offset="1" stopColor="#651321"/>
-        </linearGradient>
-      </defs>
-      <ellipse cx="80" cy="116" rx="79" ry="113" fill="url(#konj-lamp-light)"/>
-      <path d="M76 141h8v222h-8z" fill="#a17b49"/>
-      <path d="M79 146h2v211h-2z" fill="#e6c78a"/>
-      <ellipse cx="80" cy="369" rx="34" ry="8" fill="#6d5336"/>
-      <ellipse cx="80" cy="365" rx="30" ry="6" fill="#b79661"/>
-      <path d="M52 54h56l23 99H29Z" fill="url(#konj-lamp-shade)" stroke="#57202b" strokeWidth="2"/>
-      <ellipse cx="80" cy="153" rx="51" ry="5" fill="#e0a066"/>
-      <path d="M52 57h56M39 142h82" stroke="#ec9868" opacity=".4"/>
-      <path d="M104 160v29" stroke="#d1b27b"/>
-      <circle cx="104" cy="191" r="2.5" fill="#d1b27b"/>
-    </svg>
-  );
-}

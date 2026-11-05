@@ -4,20 +4,17 @@
   .site-header[data-liquid] { background:#321014ec; border-color:#b58b7059; border-top-color:#dfbea47a; }
   .shop-home .home-shirt-stage,.shirt-showcase,.studio-art-plate {
     background-color:#420d18;
-    background-image:
-      radial-gradient(ellipse at 48% 4%,#df6b4930,transparent 62%),
-      linear-gradient(90deg,#10080ba8,transparent 23%,transparent 76%,#10080ba8),
-      linear-gradient(180deg,#17070c44,transparent 38%,#16080ac9 100%),
-      repeating-linear-gradient(90deg,#260810 0px,#49101b 8px,#7d1d2d 22px,#922a37 30px,#641322 43px,#350913 55px,#1f070e 64px,#3f0c18 76px);
+    background-image:url("/red-room-curtain.svg");
+    background-size:100% 100%;
     border-color:#8f6254; outline-color:#ac8871;
     box-shadow:inset 0 0 70px #10060960,0 14px 32px #29101224;
     isolation:isolate; overflow:hidden;
   }
   .shop-home .home-shirt-stage::after,.shirt-showcase::after,.studio-art-plate::after {
-    content:""; position:absolute; z-index:0; inset:auto -24% -5%; height:29%;
+    content:""; position:absolute; z-index:0; inset:auto -24% -1%; height:38%;
     background:#d9d0bc url("/red-room-floor.svg") repeat;
     background-size:160px 80px; transform-origin:center bottom;
-    transform:perspective(480px) rotateX(48deg);
+    transform:perspective(480px) rotateX(26deg);
     border-top:2px solid #1e0b10;
     box-shadow:inset 0 30px 28px -12px #17090de0; pointer-events:none;
   }
@@ -54,7 +51,7 @@
   .site-footer { background:#291217; border-top:3px double #ab806b; }
 }
 @media screen and (max-width:700px) {
-  .shop-home .home-shirt-stage::after,.shirt-showcase::after { background-size:120px 60px; height:25%; }
+  .shop-home .home-shirt-stage::after,.shirt-showcase::after { background-size:120px 60px; height:36%; }
   .showcase-copy[data-liquid] { background:#290c14f5; }
 }
 @media screen and (prefers-reduced-transparency:reduce) {
@@ -172,13 +169,13 @@
 @media screen {
   .shop-home .home-shirt-stage > .marble-figure {
     position:absolute;
-    z-index:0;
+    z-index:1;
     inset-inline-end:3%;
-    bottom:12%;
+    bottom:15%;
     width:clamp(75px,17%,120px);
     height:auto;
     pointer-events:none;
-    filter:drop-shadow(8px 10px 6px #16081066);
+    filter:drop-shadow(3px 4px 3px #16081044);
     opacity:.88;
   }
 }
@@ -221,24 +218,12 @@
   .coffee-note:hover { background:#f4e1b90a; }
   .coffee-note:hover strong { color:#fff4d7; }
   .coffee-note:focus-visible { outline-color:#f3d7a3; }
-  .shop-home .home-shirt-stage > .room-lamp {
-    position:absolute;
-    z-index:0;
-    left:1%;
-    bottom:12%;
-    width:clamp(85px,19%,130px);
-    height:auto;
-    pointer-events:none;
-  }
+
   .shop-home .home-shirt-stage > .marble-figure { inset-inline-end:auto; right:3%; }
 }
 @media screen and (max-width:700px) {
   .forest-notes-heading { border-color:#ceac7944; }
   .coffee-drawing,.log-medallion { width:140px; }
-  .shop-home .home-shirt-stage > .room-lamp { width:82px; bottom:13%; }
-}
-@media print, (forced-colors:active) {
-  .room-lamp { display:none; }
 }
 @media (forced-colors:active) {
   .forest-notes,.forest-object { background:Canvas; color:CanvasText; box-shadow:none; }
@@ -246,4 +231,14 @@
   .forest-object-text small,.forest-object-text strong,.forest-object-text > span { color:CanvasText; }
   .log-medallion { display:none; }
   .coffee-note:hover,.coffee-note:hover strong { background:Canvas; color:LinkText; }
+}
+
+@media screen {
+  .forest-notes-heading .pie-medallion { display:block; width:110px; height:auto; margin-block:12px; }
+}
+@media screen and (max-width:700px) {
+  .forest-notes-heading .pie-medallion { float:left; width:90px; margin:0 8px 8px 0; }
+}
+@media print, (forced-colors:active) {
+  .forest-notes-heading .pie-medallion { display:none; }
 }
