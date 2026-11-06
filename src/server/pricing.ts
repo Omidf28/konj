@@ -37,7 +37,7 @@ function validateSingle(
   if (
     custom.side === "back" &&
     (!config.backPrintEnabled ||
-      !["tshirt", "hoodie"].includes(product.category))
+      !["tshirt", "hoodie", "mug"].includes(product.category))
   )
     throw new AppError("چاپ پشت برای این محصول فعال نیست.");
   const upload = db()
@@ -98,6 +98,8 @@ export function validateCustom(
 ): CustomDesign {
   const main = validateSingle(input, productId, owner);
   const extra = (input as CustomDesign).additionalPrints;
+  if (main.side === "back" && getProduct(productId)?.category === "mug")
+    throw new AppError("برای چاپ دوطرفه ماگ، ابتدا طرح سمت جلو را انتخاب کنید.");
   if (extra !== undefined) {
     if (!Array.isArray(extra) || extra.length > 1)
       throw new AppError("حداکثر دو سمت چاپ پذیرفته می‌شود.");
@@ -106,6 +108,16 @@ export function validateCustom(
     );
     if (additionalPrints.some((print) => print.side === main.side))
       throw new AppError("سمت چاپ تکراری است.");
+    const product = getProduct(productId);
+    if (additionalPrints.length && product?.category === "mug") {
+      const area = getBase(product.baseId)?.printArea;
+      const second = additionalPrints[0];
+      if (!area || main.side !== "front" || second.uploadId !== main.uploadId ||
+          second.widthCm !== main.widthCm || second.heightCm !== main.heightCm ||
+          second.xCm !== main.xCm || second.yCm !== main.yCm ||
+          main.xCm + main.widthCm > area.widthCm / 2 + 0.001)
+        throw new AppError("طرح دو طرف ماگ باید یکسان و داخل محدوده هر سمت باشد.");
+    }
     return { ...main, additionalPrints };
   }
   return main;

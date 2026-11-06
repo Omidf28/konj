@@ -365,6 +365,27 @@ export function db(): DatabaseSync {
     database.exec("ROLLBACK");
     throw error;
   }
+  database.exec("BEGIN IMMEDIATE");
+  try {
+    if (!database.prepare("SELECT version FROM schema_migrations WHERE version=9").get()) {
+      database.prepare("UPDATE content SET body=json_set(body,'$.backPrintEnabled',json('true')),revision=revision+1 WHERE kind='bases' AND id='mug-01' AND json_extract(body,'$.category')='mug'").run();
+      for (const row of database.prepare("SELECT body FROM products WHERE json_extract(body,'$.baseId')='mug-01'").all()) {
+        const product = JSON.parse(String(row.body)) as Product;
+        if (product.category !== "mug" || product.variants.some(v => v.color === "مشکی")) continue;
+        const sku = product.id + "-black";
+        if (database.prepare("SELECT sku FROM variants WHERE sku=?").get(sku)) continue;
+        if (!product.colors.some(c => c.name === "مشکی")) product.colors.push({ name: "مشکی", hex: "#232426" });
+        product.variants.push({ sku, color: "مشکی", size: null, stock: 0 });
+        database.prepare("INSERT INTO variants(sku,product_id,stock) VALUES(?,?,0)").run(sku, product.id);
+        database.prepare("UPDATE products SET body=?,revision=revision+1 WHERE id=?").run(JSON.stringify(product), product.id);
+      }
+      database.prepare("INSERT INTO schema_migrations VALUES(9,?)").run(Date.now());
+    }
+    database.exec("COMMIT");
+  } catch (error) {
+    database.exec("ROLLBACK");
+    throw error;
+  }
   instance = database;
   return database;
 }

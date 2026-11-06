@@ -28,7 +28,7 @@ export function ShirtShowcase({ base, category = "tshirt" }: {
       <p className="showcase-note">{garment ? "بچرخان؛ یا «گرفتن پارچه» را بزن و لباس را بکش و رها کن." : "با کشیدن ماوس یا انگشت، محصول را بچرخان."}</p>
     </div>
     <div className="showcase-dock glass-panel" data-liquid="dock">
-      <div className="fit-swatches" role="group" aria-label={"رنگ " + label + " نمایشی"}>{(hoodie ? [{ name: "سیج", hex: "#8d9b88" }, { name: "جوهر", hex: "#424a55" }, { name: "وانیل", hex: "#d5cabc" }] : finishes).map(c => <button type="button" key={c.hex} style={{ background: c.hex }} aria-label={c.name} title={c.name} aria-pressed={color === c.hex} onClick={() => setColor(c.hex)}/>)}</div>
+      <div className="fit-swatches" role="group" aria-label={"رنگ " + label + " نمایشی"}>{(hoodie ? [{ name: "سیج", hex: "#8d9b88" }, { name: "جوهر", hex: "#424a55" }, { name: "وانیل", hex: "#d5cabc" }] : category === "mug" ? [...finishes, { name: "مشکی", hex: "#232426" }] : finishes).map(c => <button type="button" key={c.hex} style={{ background: c.hex }} aria-label={c.name} title={c.name} aria-pressed={color === c.hex} onClick={() => setColor(c.hex)}/>)}</div>
       <span className="showcase-dock-label">{label} / پیش‌نمایش</span>
       <button type="button" className="showcase-pause" aria-pressed={!spin} onClick={() => setSpin(v => !v)}>{spin ? "توقف چرخش" : "ادامه چرخش"}</button>
     </div>

@@ -1,6 +1,7 @@
 import * as T from "three";
 
 export interface MugPreview {
+  repeatOnMug?: boolean;
   widthCm?: number;
   heightCm?: number;
   areaWidthCm?: number;
@@ -61,13 +62,29 @@ export function buildMugPreview(input: MugPreview, porcelain: T.Material, printM
     new T.Vector3(r * .965, -h * .29, 0),
   ], false, "centripetal");
   const handleGeometry = new T.TubeGeometry(path, 80, r * .11, 16, false);
+  // Flatten the grip across its curve and flare the clay into both handle roots.
+  const vertices = handleGeometry.getAttribute("position");
+  const center = new T.Vector3();
+  const vertex = new T.Vector3();
+  for (let ring = 0; ring <= 80; ring++) {
+    const t = ring / 80;
+    path.getPointAt(t, center);
+    const root = Math.exp(-Math.min(t, 1 - t) * 14);
+    for (let segment = 0; segment <= 16; segment++) {
+      const index = ring * 17 + segment;
+      vertex.fromBufferAttribute(vertices, index).sub(center);
+      vertices.setXYZ(index, center.x + vertex.x * (.88 + .65 * root),
+        center.y + vertex.y * (.88 + .65 * root), vertex.z * (1.32 + .32 * root));
+    }
+  }
+  handleGeometry.computeVertexNormals();
   const handle = new T.Mesh(handleGeometry, porcelain);
   handle.name = "mug-handle";
   handle.castShadow = true;
   handle.receiveShadow = true;
   group.add(handle);
 
-  const areaWidth = input.areaWidthCm || 20;
+  const areaWidth = (input.areaWidthCm || 20) / (input.repeatOnMug ? 2 : 1);
   const areaHeight = input.areaHeightCm || 9;
   const allowedArc = Math.min(areaWidth / (r / scale), Math.PI * 1.7);
   const arc = Math.min((input.printWidthCm || areaWidth) / (r / scale), allowedArc);
@@ -84,5 +101,11 @@ export function buildMugPreview(input: MugPreview, porcelain: T.Material, printM
   print.name = "mug-print";
   print.position.y = cy;
   group.add(print);
-  return { group, body, handle, print, radius: r, height: h };
+  const opposite = input.repeatOnMug ? print.clone() : undefined;
+  if (opposite) {
+    opposite.name = "mug-print-back";
+    opposite.rotation.y = Math.PI;
+    group.add(opposite);
+  }
+  return { group, body, handle, print, opposite, radius: r, height: h };
 }

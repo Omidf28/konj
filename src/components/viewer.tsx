@@ -47,6 +47,7 @@ export interface ViewerProps {
   color: string;
   motif: Motif;
   category: "tshirt" | "hoodie" | "mug" | "sticker";
+  repeatOnMug?: boolean;
   imageUrl?: string;
   printWidthCm?: number;
   printHeightCm?: number;
@@ -426,7 +427,7 @@ export default function Viewer(props: ViewerProps) {
       const printMaterial = new THREE.MeshStandardMaterial({
         map: texture,
         transparent: true,
-        roughness: 0.85,
+        roughness: props.category === "mug" ? .29 : .85,
         depthWrite: false,
         polygonOffset: true,
         polygonOffsetFactor: -4,
@@ -438,9 +439,11 @@ export default function Viewer(props: ViewerProps) {
         const artwork=add(geometry.print,printMaterial,[0,0,0]);artwork.visible=props.showPrint!==false;
         subject=new THREE.Group();subject.add(sheet,artwork);scene.add(subject);
       } else if (props.category === "mug") {
-        const porcelain = new THREE.MeshStandardMaterial({color:props.color,roughness:.25});
-        const mug=buildMugPreview({widthCm:props.base?.widthCm,heightCm:props.base?.heightCm,areaWidthCm:props.base?.printArea?.widthCm,areaHeightCm:props.base?.printArea?.heightCm,printWidthCm:props.printWidthCm,printHeightCm:props.printHeightCm,printXCm:props.printXCm,printYCm:props.printYCm},porcelain,printMaterial);
+        const porcelain = new THREE.MeshPhysicalMaterial({ color: props.color, roughness: .32, clearcoat: .8, clearcoatRoughness: .19 });
+        const mug=buildMugPreview({repeatOnMug:props.repeatOnMug,widthCm:props.base?.widthCm,heightCm:props.base?.heightCm,areaWidthCm:props.base?.printArea?.widthCm,areaHeightCm:props.base?.printArea?.heightCm,printWidthCm:props.printWidthCm,printHeightCm:props.printHeightCm,printXCm:props.printXCm,printYCm:props.printYCm},porcelain,printMaterial);
         mug.print.visible=props.showPrint!==false;
+        if (mug.opposite) mug.opposite.visible = mug.print.visible;
+        else if (props.side === "back") mug.print.rotation.y = Math.PI;
         scene.add(mug.group);subject=mug.group;
       } else {
         const dims = props.garmentOnly ? garmentDisplayDimensions(props.size, props.category === "hoodie", props.base) : previewDimensions(
@@ -864,6 +867,7 @@ export default function Viewer(props: ViewerProps) {
     props.motif,
     props.category,
     props.imageUrl,
+    props.repeatOnMug,
     props.printWidthCm,
     props.printHeightCm,
     props.printXCm,

@@ -26,6 +26,7 @@ export async function prepareCustomCartItem(
     sku: string;
     quantity: number;
     prints: CustomPrintInput[];
+    repeatOnMug?: boolean;
   },
   signal: AbortSignal,
   fetcher: typeof fetch = fetch,
@@ -92,6 +93,8 @@ export async function prepareCustomCartItem(
       throw Error(`چاپ ${side} تأیید نشد: ${reason} ممکن است فایل سمت قبلی ذخیره شده باشد؛ سبد قبلی حفظ شده است و درخواست خودکار تکرار نمی‌شود.`);
     }
   }
+  if (input.repeatOnMug && prints.length === 1 && prints[0].side === "front")
+    prints.push({ ...prints[0], side: "back" });
   const item: CartItem = {
     key: input.key,
     productId: input.productId,

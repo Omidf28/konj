@@ -131,7 +131,7 @@ export function workshopSheet(order: FulfillmentOrder) {
         heightCm: number(base.heightCm),
         printArea:
           number(area.widthCm)! > 0 && number(area.heightCm)! > 0
-            ? { widthCm: number(area.widthCm), heightCm: number(area.heightCm) }
+            ? { widthCm: base.category === "mug" && sources.length === 2 ? number(area.widthCm)! / 2 : number(area.widthCm), heightCm: number(area.heightCm) }
             : undefined,
         sizeMeasurements: chart
           ? {

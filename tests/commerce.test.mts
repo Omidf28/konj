@@ -154,6 +154,28 @@ test("custom uploads cannot cross ownership and print bounds are validated", () 
   );
 });
 
+test("black custom mug repeats a single owned file on two priced faces", () => {
+  const owner = hash("double-mug-owner");
+  const product = getProduct("custom-mug-01")!;
+  const black = product.variants.find(v => v.color === "مشکی")!;
+  const uploadId = "double-mug-file";
+  db().prepare("INSERT INTO uploads VALUES(?,?,?,?,?,?,?,?,?)").run(
+    uploadId, owner, "test-original", "test-preview", "image/png", 800, 800, 1200, Date.now(),
+  );
+  const front = { version: 1, side: "front", uploadId, widthCm: 7, heightCm: 7, xCm: 1.5, yCm: 1, rotation: 0 };
+  const back = { ...front, side: "back" };
+  const line = { key: "black-mug", productId: product.id, sku: black.sku, quantity: 1, custom: front };
+  const two = { ...line, custom: { ...front, additionalPrints: [back] } };
+  const single = quoteCart([line], owner).items[0];
+  const order = createOrder(owner, [two], address, "double-mug-order-fixture");
+  const saved = getOrder(order.trackingToken).snapshot.items[0];
+  assert.equal(saved.color, "مشکی");
+  assert.equal(saved.unitPriceToman - single.unitPriceToman, 60000);
+  assert.deepEqual(saved.custom?.additionalPrints, [back]);
+  assert.equal(db().prepare("SELECT count(*) AS count FROM order_uploads WHERE order_id=?").get(order.id)?.count, 1);
+  assert.throws(() => quoteCart([{ ...two, custom: { ...front, additionalPrints: [{ ...back, xCm: 4 }] } }], owner));
+});
+
 test("custom sticker dimensions replace nominal SKU size in quote and immutable order snapshot", () => {
   const owner = hash("custom-sticker-size-owner");
   const product = getProduct("custom-sticker-01")!;

@@ -97,7 +97,7 @@ export function Fitting({ initialCategory = "tshirt", imageUrl, initialMotif = "
           {isGarment && <div><p className="fit-field-label">سایز لباس</p><div className="fit-size-options" role="group" aria-label="سایز لباس">
             {sizes.map(s => <button type="button" key={s} aria-pressed={size === s} disabled={!!sizeValue} onClick={() => setSize(s)}>{s}</button>)}</div></div>}
           <div><p className="fit-field-label">رنگ <span dir="ltr">{color}</span></p>
-            <div className="fit-swatches" role="group" aria-label="رنگ لباس">{colors.map(c => <button type="button" key={c.value} disabled={!!colorValue} style={{ background: c.value }} aria-label={c.name} title={c.name} aria-pressed={color === c.value} onClick={() => setColor(c.value)}/>)}</div></div>
+            <div className="fit-swatches" role="group" aria-label="رنگ لباس">{(category === "mug" ? [...colors, { name: "مشکی", value: "#232426" }] : colors).map(c => <button type="button" key={c.value} disabled={!!colorValue} style={{ background: c.value }} aria-label={c.name} title={c.name} aria-pressed={color === c.value} onClick={() => setColor(c.value)}/>)}</div></div>
           {(sizeValue || colorValue) && <p className="fit-help">رنگ و سایز با گزینه خرید هماهنگ‌اند؛ از گزینه‌های محصول تغییرشان بده.</p>}
           {!imageUrl && <label className="field">طرح<select disabled={!lab && (!!sizeValue || !!colorValue)} value={motif} onChange={e => setMotif(e.target.value as Motif)}>
             <option value="offline">آفلاین</option><option value="noise">نویز</option><option value="cat">شیفت شب</option><option value="fine">همه‌چی عادیه</option></select></label>}

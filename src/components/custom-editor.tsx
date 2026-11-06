@@ -46,12 +46,13 @@ function bounds(
   product: Product,
   base: BaseModel,
   config: StoreSettings,
+  repeatOnMug: boolean,
 ): Bounds {
   const sticker = product.category === "sticker";
   return customPrintBounds(draft, {
     sticker,
     minCm: sticker ? config.customStickerMinCm : 1,
-    maxWidth: sticker ? config.customStickerMaxCm : base.printArea?.widthCm || 0,
+    maxWidth: sticker ? config.customStickerMaxCm : (base.printArea?.widthCm || 0) / (repeatOnMug ? 2 : 1),
     maxHeight: sticker ? config.customStickerMaxCm : base.printArea?.heightCm || 0,
   });
 }
@@ -143,23 +144,26 @@ export function CustomEditor({
   const loadedEdit = useRef(false);
   const [editFailed, setEditFailed] = useState(false);
   const urls = useRef(new Set<string>());
+  const [repeatChecked, setRepeatChecked] = useState(false);
+  const canRepeat = product?.category === "mug" && base?.backPrintEnabled && config.backPrintEnabled;
+  const repeatOnMug = Boolean(canRepeat && repeatChecked && drafts.front);
   const draft = drafts[side];
   const placement = useMemo(
-    () => (draft && base ? bounds(draft, product, base, config) : null),
-    [draft, product, base, config],
+    () => (draft && base ? bounds(draft, product, base, config, repeatOnMug) : null),
+    [draft, product, base, config, repeatOnMug],
   );
   const hasBack =
     config.backPrintEnabled &&
     base?.backPrintEnabled &&
     ["tshirt", "hoodie"].includes(product?.category);
   const active = (Object.entries(drafts) as [Side, Draft][]).filter(
-    ([printSide]) => printSide === "front" || hasBack,
+    ([printSide, print]) => Boolean(print) && (printSide === "front" || hasBack),
   );
-  const invalidPrint = active.some(([, print]) => !bounds(print, product, base, config).valid);
+  const invalidPrint = active.some(([, print]) => !bounds(print, product, base, config, repeatOnMug).valid);
   const sticker = product?.category === "sticker";
   const price = active.reduce(
     (sum, [printSide, print]) => {
-      const p = bounds(print, product, base, config);
+      const p = bounds(print, product, base, config, repeatOnMug);
       return (
         sum +
         (sticker
@@ -170,7 +174,7 @@ export function CustomEditor({
             (p.width * p.height > 400 ? config.largePrintToman : 0))
       );
     },
-    (sticker ? 0 : (base?.basePriceToman ?? product?.priceToman ?? 0)) +
+    (repeatOnMug ? config.backPrintToman + (placement && placement.width * placement.height > 400 ? config.largePrintToman : 0) : 0) + (sticker ? 0 : (base?.basePriceToman ?? product?.priceToman ?? 0)) +
       (product?.variants.find((v) => v.sku === sku)?.priceDeltaToman || 0),
   );
   useEffect(() => {
@@ -246,14 +250,15 @@ export function CustomEditor({
               !(
                 config.backPrintEnabled &&
                 selectedBase.backPrintEnabled &&
-                ["tshirt", "hoodie"].includes(selected.category)
+                ["tshirt", "hoodie", "mug"].includes(selected.category)
               )
             )
               throw Error(
                 "چاپ پشت این مدل اکنون غیرفعال است؛ قلم قبلی حفظ شده است.",
               );
             const restored: Partial<Record<Side, Omit<Draft, "url">>> = {};
-            for (const print of prints) {
+            const repeat = selected.category === "mug" && prints.length === 2;
+            for (const print of repeat ? prints.slice(0, 1) : prints) {
               const file = await readDesignOriginal(
                 print.uploadId,
                 config.maxUploadMb * 1024 ** 2,
@@ -269,9 +274,10 @@ export function CustomEditor({
                 y: print.yCm,
               };
             }
-            return { item, selected, restored };
+            return { item, selected, restored, repeat };
           },
-          ({ item, selected, restored }) => {
+          ({ item, selected, restored, repeat }) => {
+            setRepeatChecked(repeat);
             const complete: Partial<Record<Side, Draft>> = {};
             for (const [side, value] of Object.entries(restored) as [
               Side,
@@ -356,9 +362,9 @@ export function CustomEditor({
               url,
               pixelWidth: metrics.width,
               pixelHeight: metrics.height,
-              width: sticker ? 8 : 18,
-              x: 0,
-              y: 0,
+              width: product.category === "mug" ? 7 : sticker ? 8 : 18,
+              x: product.category === "mug" ? Math.max(0, ((base.printArea?.widthCm || 0) / (repeatOnMug ? 2 : 1) - Math.min(7, (base.printArea?.heightCm || 0) * metrics.width / metrics.height)) / 2) : 0,
+              y: product.category === "mug" ? Math.max(0, ((base.printArea?.heightCm || 0) - 7 * metrics.height / metrics.width) / 2) : 0,
             },
           }));
         },
@@ -393,7 +399,7 @@ export function CustomEditor({
         async (signal) => {
           const prints: CustomPrintInput[] = active.map(
             ([printSide, print]) => {
-              const p = bounds(print, product, base, config);
+              const p = bounds(print, product, base, config, repeatOnMug);
               if (
                 sticker &&
                 (p.width < config.customStickerMinCm ||
@@ -436,6 +442,7 @@ export function CustomEditor({
               sku,
               quantity: editing?.quantity || 1,
               prints,
+              repeatOnMug,
             },
             signal,
           );
@@ -488,6 +495,7 @@ export function CustomEditor({
                 cancelImageRead();
                 const next = products.find((p) => p.id === event.target.value)!;
                 setMessage("");
+                setRepeatChecked(false);
                 setProductId(next.id);
                 setSku((sellableVariants(next)[0] || next.variants[0]).sku);
                 setSide("front");
@@ -560,6 +568,18 @@ export function CustomEditor({
               }}
             />
           </label>
+          {canRepeat && draft && (
+            <label>
+              <input type="checkbox" checked={repeatChecked} disabled={busy}
+                onChange={event => {
+                  const checked = event.target.checked;
+                  const areaWidth = base.printArea?.widthCm || 0;
+                  patch({ x: (placement?.x || 0) + areaWidth / 4 * (checked ? -1 : 1) });
+                  setRepeatChecked(checked);
+                }} />
+              چاپ همین طرح روی سمت دیگر ماگ (+{formatPrice(config.backPrintToman)})
+            </label>
+          )}
           {reading && (
             <p role="status">
               در حال خواندن تصویر انتخاب‌شده… تأیید تا پایان خواندن بسته است.
@@ -770,6 +790,7 @@ export function CustomEditor({
                       printHeightCm={placement.height}
                       printXCm={placement.x}
                       printYCm={placement.y}
+                      repeatOnMug={repeatOnMug}
                       side={side}
                     />
                   </div>
