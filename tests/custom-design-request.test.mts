@@ -256,3 +256,33 @@ test("a second-side upload failure preserves the full existing line and local fi
     assert.equal(retriedUploads, 2);
   }
 });
+
+test("mug repeat uploads once and preserves both faces in the quote and returned item", async () => {
+  const calls: string[] = [];
+  const item = await prepareCustomCartItem({ ...input(), repeatOnMug: true },
+    new AbortController().signal, async (url, options) => {
+      calls.push(String(url));
+      if (url === "/api/session") return Response.json({ ok: true });
+      if (url === "/api/uploads") return Response.json({ id: id1 });
+      const body = JSON.parse(String(options?.body));
+      const front = body.items[0].custom;
+      assert.deepEqual(front.additionalPrints, [{
+        ...print().placement, side: "back", uploadId: id1,
+      }]);
+      return Response.json(quote(body));
+    });
+  assert.deepEqual(calls, ["/api/session", "/api/uploads", "/api/quote"]);
+  assert.equal(item.custom?.additionalPrints?.[0].uploadId, item.custom?.uploadId);
+});
+
+test("ambiguous mug-repeat inputs fail before session or upload requests", async () => {
+  for (const prints of [[print("back")], [print(), print("back")]]) {
+    let calls = 0;
+    await assert.rejects(prepareCustomCartItem({ ...input(), prints, repeatOnMug: true },
+      new AbortController().signal, async () => {
+        calls++;
+        throw Error("network must not run");
+      }), /سمت‌های چاپ معتبر نیستند/);
+    assert.equal(calls, 0);
+  }
+});

@@ -1067,6 +1067,61 @@ for (const [baseId, widthCm, heightCm] of [
   assert.equal(original.status, 200);
   assert.deepEqual(Buffer.from(await original.arrayBuffer()), png);
 }
+// The repeated mug is one owned upload used by two production faces.
+const mugOffer = selectionData.products.find(
+  (product: { customOnly?: boolean; baseId: string }) => product.customOnly && product.baseId === "mug-01",
+);
+const blackMug = mugOffer.variants.find((variant: { color: string }) => variant.color === "مشکی");
+assert.ok(blackMug, "black custom mug is selectable");
+let mugUploads = 0;
+const mugFetch: typeof fetch = (url, options) => {
+  if (String(url) === "/api/uploads") mugUploads++;
+  return guestFetch(url, options);
+};
+const mugItem = await prepareCustomCartItem({
+  key: randomUUID(), productId: mugOffer.id, sku: blackMug.sku, quantity: 2,
+  repeatOnMug: true,
+  prints: [{
+    file: new File([png], "mug-repeat.png", { type: "image/png" }),
+    placement: { version: 1, side: "front", widthCm: 8, heightCm: 4, xCm: 1, yCm: 2, rotation: 0 },
+    preview: async () => new Blob([png], { type: "image/png" }),
+  }],
+}, new AbortController().signal, mugFetch);
+assert.equal(mugUploads, 1, "repeat must not duplicate original storage");
+assert.equal(mugItem.custom!.uploadId, mugItem.custom!.additionalPrints![0].uploadId);
+const mugQuoteResponse = await request("/api/quote", "POST", { items: [mugItem] }, guestCookie);
+assert.equal(mugQuoteResponse.status, 200);
+const mugQuote = await mugQuoteResponse.json();
+const mugPayload = { items: [mugItem], address, idempotencyKey: randomUUID(), expectedTotalToman: mugQuote.totalToman };
+const mugCreated = await request("/api/orders", "POST", mugPayload, guestCookie);
+assert.equal(mugCreated.status, 201, await mugCreated.clone().text());
+const mugOrder = await mugCreated.json();
+const mugRetry = await request("/api/orders", "POST", mugPayload, guestCookie);
+assert.equal((await mugRetry.json()).id, mugOrder.id);
+assert.equal((await request("/api/orders/" + mugOrder.trackingToken + "/pay", "POST")).status, 200);
+const mugWorkshopResponse = await request("/api/admin/orders/" + mugOrder.id + "/production?view=workshop", "GET", undefined, adminCookie);
+assert.equal(mugWorkshopResponse.status, 200);
+const mugWorkshop = await mugWorkshopResponse.json();
+const mugProduction = mugWorkshop.items[0];
+assert.equal(mugProduction.color, "مشکی");
+assert.equal(mugProduction.quantity, 2);
+assert.equal(mugProduction.model.printArea.widthCm, 10, "each face uses half of the original printable width");
+assert.deepEqual(mugProduction.prints.map((print: { side: string }) => print.side), ["front", "back"]);
+for (const print of mugProduction.prints) {
+  assert.equal(print.widthCm, 8);
+  assert.equal(print.heightCm, 4);
+  assert.equal(print.xCm, 1);
+  assert.equal(print.yCm, 2);
+  assert.equal((await request(print.originalUrl)).status, 403);
+  const original = await request(print.originalUrl, "GET", undefined, adminCookie);
+  assert.equal(original.status, 200);
+  assert.deepEqual(Buffer.from(await original.arrayBuffer()), png);
+}
+const mugRestored = await readDesignOriginal(mugItem.custom!.uploadId, 10 * 1024 ** 2, new AbortController().signal, guestFetch);
+assert.deepEqual(Buffer.from(await mugRestored.arrayBuffer()), png);
+const mugTracked = await (await request("/api/orders/" + mugOrder.trackingToken)).json();
+assert.deepEqual(mugTracked.snapshot.items[0].custom, mugItem.custom);
+assert.equal(mugTracked.snapshot.totalToman, mugQuote.totalToman);
 // A sticker composition is sold as exact physical units, independent of layout positions.
 const stickerProducts = selectionData.products.filter((p: { category: string; customOnly?: boolean }) => p.category === "sticker" && !p.customOnly).slice(0, 2);
 assert.equal(stickerProducts.length, 2);

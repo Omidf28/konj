@@ -34,6 +34,7 @@ export async function prepareCustomCartItem(
   active(signal);
   if (
     !input.prints.length ||
+    (input.repeatOnMug && (input.prints.length !== 1 || input.prints[0].placement.side !== "front")) ||
     input.prints.length > 2 ||
     new Set(input.prints.map((print) => print.placement.side)).size !==
       input.prints.length
