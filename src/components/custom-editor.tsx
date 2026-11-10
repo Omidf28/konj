@@ -1,6 +1,7 @@
 "use client";
 import {
   prepareCustomCartItem,
+  customPrintsForEditing,
   readDesignOriginal,
   type CustomPrintInput,
 } from "@/lib/custom-design-request";
@@ -257,8 +258,8 @@ export function CustomEditor({
                 "چاپ پشت این مدل اکنون غیرفعال است؛ قلم قبلی حفظ شده است.",
               );
             const restored: Partial<Record<Side, Omit<Draft, "url">>> = {};
-            const repeat = selected.category === "mug" && prints.length === 2;
-            for (const print of repeat ? prints.slice(0, 1) : prints) {
+            const { prints: editablePrints, repeat } = customPrintsForEditing(selected.category, item.custom);
+            for (const print of editablePrints) {
               const file = await readDesignOriginal(
                 print.uploadId,
                 config.maxUploadMb * 1024 ** 2,
@@ -671,7 +672,8 @@ export function CustomEditor({
           )}
           <p>
             سمت‌های دارای طرح:{" "}
-            {active.map(([s]) => (s === "front" ? "جلو" : "پشت")).join("، ") ||
+            {repeatOnMug ? "دو طرف ماگ · طرح یکسان" :
+              active.map(([s]) => (s === "front" ? "جلو" : "پشت")).join("، ") ||
               "هنوز هیچ‌کدام"}
           </p>
           {invalidPrint && (
@@ -726,7 +728,7 @@ export function CustomEditor({
         <section>
           <div className="custom-preview">
             <p>
-              محدوده چاپ {side === "front" ? "جلو" : "پشت"} ·{" "}
+              محدوده چاپ {repeatOnMug ? "هر سمت ماگ" : side === "front" ? "جلو" : "پشت"} ·{" "}
               {placement?.areaWidth.toFixed(1) || base.printArea?.widthCm} ×{" "}
               {placement?.areaHeight.toFixed(1) || base.printArea?.heightCm} cm
             </p>

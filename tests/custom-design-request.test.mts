@@ -3,6 +3,7 @@ import test from "node:test";
 import assert from "node:assert/strict";
 import {
   prepareCustomCartItem,
+  customPrintsForEditing,
   readDesignOriginal,
   type CustomPrintInput,
 } from "../src/lib/custom-design-request.ts";
@@ -285,4 +286,23 @@ test("ambiguous mug-repeat inputs fail before session or upload requests", async
       }), /سمت‌های چاپ معتبر نیستند/);
     assert.equal(calls, 0);
   }
+});
+
+test("editing a repeated mug keeps its exact saved placement and never silently drops a different second design", () => {
+  const front = { ...print().placement, uploadId: id1 };
+  const back = { ...front, side: "back" as const };
+  const custom = { ...front, additionalPrints: [back] };
+  const original = JSON.stringify(custom);
+  assert.deepEqual(customPrintsForEditing("mug", custom), { prints: [custom], repeat: true });
+  assert.equal(JSON.stringify(custom), original);
+  for (const changed of [{ ...back, uploadId: id2 }, { ...back, widthCm: 8 },
+    { ...back, xCm: 2 }, { ...back, rotation: 45 }, { ...back, side: "front" as const }]) {
+    assert.throws(() => customPrintsForEditing("mug", { ...front, additionalPrints: [changed] }), /قلم قبلی حفظ شد/);
+  }
+  assert.throws(() => customPrintsForEditing("mug", back), /قلم قبلی حفظ شد/);
+  assert.deepEqual(customPrintsForEditing("mug", front), { prints: [front], repeat: false });
+  const garment = { ...front, additionalPrints: [{ ...back, uploadId: id2 }] };
+  assert.deepEqual(customPrintsForEditing("hoodie", garment), {
+    prints: [garment, garment.additionalPrints[0]], repeat: false,
+  });
 });

@@ -1,5 +1,17 @@
-import type { CartItem, PrintPlacement } from "./commerce-types.ts";
+import type { CartItem, CustomDesign, PrintPlacement } from "./commerce-types.ts";
 import { requestCartQuote } from "./quote-request.ts";
+export function customPrintsForEditing(category: string, custom: CustomDesign) {
+  const prints = [custom, ...(custom.additionalPrints || [])];
+  if (category !== "mug") return { prints, repeat: false };
+  const [front, back] = prints;
+  const matching = back && back.side === "back" &&
+    (["uploadId", "widthCm", "heightCm", "xCm", "yCm", "rotation"] as const)
+      .every(key => back[key] === front[key]);
+  if (front.side !== "front" || prints.length > 2 || (back && !matching))
+    throw Error("دو سمت این ماگ با حالت تکرار یک طرح سازگار نیستند؛ قلم قبلی حفظ شد. برای اصلاح، طرح‌های اصلی را بررسی کنید.");
+  return { prints: [front], repeat: Boolean(back) };
+}
+
 export interface CustomPrintInput {
   file: File;
   placement: Omit<PrintPlacement, "uploadId">;
